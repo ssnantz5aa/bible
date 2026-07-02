@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="theme-color" content="#3d2916">
+<meta name="theme-color" content="#2a2620">
 <title>생명의 말씀 — 가족 성경 대시보드</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,22 +15,23 @@
    생명의 말씀 v2 — 스타일 (모바일 우선, 종이/가죽 성경 감성)
    ===================================================================== */
 :root{
-  --paper-bg:#e9dcc2; --paper-book:#f6efe0; --paper-book2:#f1e8d5; --paper-edge:#d8c4a0;
-  --ink:#3a2c1a; --ink-soft:#6b5638; --ink-faint:#8a765a;
-  --gold:#c19a3a; --gold-deep:#8a6a1e; --gold-light:#e6cf94;
-  --brown:#5b3f24; --brown-deep:#3d2916; --leather:#6b4a2b; --leather-deep:#4a3119;
-  --leaf:#4e7a4a; --amber:#d9a838; --line:#d3bd94; --card:#f6efe0;
-  --shadow:rgba(60,40,15,.18); --shadow-strong:rgba(45,30,12,.4);
+  --paper-bg:#edeae1; --paper-book:#faf8f2; --paper-book2:#f4f1e8; --paper-edge:#e1dccc;
+  --ink:#2f2b25; --ink-soft:#6a6357; --ink-faint:#9c9384;
+  --gold:#a37e5c; --gold-deep:#74543a; --gold-light:#e6d7c5;
+  --brown:#44403a; --brown-deep:#2a2620; --leather:#586a54; --leather-deep:#39452f;
+  --leaf:#5b8c72; --amber:#c6a24c; --line:#e0d9c8; --card:#faf8f2;
+  --shadow:rgba(55,48,32,.14); --shadow-strong:rgba(38,33,22,.32);
   --radius:14px;
   --serif:"Noto Serif KR","Nanum Myeongjo","Apple SD Gothic Neo",serif;
   --sans:"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
-  --heat-0:#e2d4b8;--heat-1:#cfe0c2;--heat-2:#a7c99a;--heat-3:#6fa763;--heat-4:#3f7a3a;
+  --heat-0:#e5e1d3;--heat-1:#d4ddc4;--heat-2:#a8c69e;--heat-3:#72a074;--heat-4:#4a7a54;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;padding:0;max-width:100%;overflow-x:hidden;}
 body{font-family:var(--sans);color:var(--ink);background-color:var(--paper-bg);
-  background-image:radial-gradient(circle at 15% 20%,rgba(193,154,58,.06)0,transparent 42%),
-    radial-gradient(circle at 85% 75%,rgba(91,63,36,.05)0,transparent 45%),
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 15% 20%,rgba(120,95,60,.05)0,transparent 42%),
+    radial-gradient(circle at 85% 75%,rgba(91,63,36,.045)0,transparent 45%),
     repeating-linear-gradient(0deg,rgba(120,90,40,.012)0 1px,transparent 1px 3px);
   min-height:100vh;line-height:1.6;transition:background-color .5s,color .5s;}
 button{font-family:inherit;cursor:pointer;}
@@ -78,6 +79,25 @@ button{font-family:inherit;cursor:pointer;}
 .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-deep));border-radius:99px;transition:width .9s cubic-bezier(.22,1,.36,1);}
 .progress-sub{margin-top:10px;font-size:12.5px;color:var(--ink-soft);display:flex;gap:16px;flex-wrap:wrap;}
 .progress-sub b{color:var(--brown);font-weight:600;}
+
+/* 컴팩트 상단 + 접이식 패널 (성경을 먼저 눈에 띄게) */
+.compact-top{padding:12px 16px;}
+.compact-top .progress-top{align-items:center;}
+.compact-top .progress-pct{font-size:22px;}
+.compact-top .progress-label{font-size:12.5px;}
+.compact-top .progress-label b{color:var(--brown);font-weight:700;}
+.compact-top .progress-bar{height:8px;margin-top:8px;}
+.compact-top .user-strip{margin-top:10px;}
+.compact-top .user-chip{padding:5px 11px 5px 6px;min-height:38px;font-size:13px;}
+.compact-top .user-chip .ava{width:24px;height:24px;font-size:13px;}
+.compact-top .user-add{padding:5px 11px;min-height:38px;font-size:13px;}
+.collapse-panel{padding:0;margin-bottom:12px;}
+.collapse-panel>summary{list-style:none;cursor:pointer;padding:12px 16px;margin:0;display:flex;align-items:center;gap:8px;}
+.collapse-panel>summary::-webkit-details-marker{display:none;}
+.collapse-panel>summary::after{content:"⌄";margin-left:auto;font-size:15px;color:var(--ink-faint);transition:transform .25s;}
+.collapse-panel[open]>summary::after{transform:rotate(180deg);}
+.collapse-panel .fav-list,.collapse-panel .bm-list{padding:0 16px 14px;}
+.cp-count{font-size:11.5px;color:var(--gold-deep);font-weight:700;background:var(--gold-light);border-radius:99px;padding:1px 9px;min-width:20px;text-align:center;}
 .mini-stat{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;}
 .mini-box{flex:1;min-width:90px;background:var(--paper-bg);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;}
 .mini-box .n{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--brown);}
@@ -107,7 +127,7 @@ button{font-family:inherit;cursor:pointer;}
 .section-title span{white-space:nowrap;}
 
 /* 달력 */
-.cal-card{background:var(--card);border:1px solid var(--paper-edge);border-radius:var(--radius);padding:16px;box-shadow:0 4px 16px var(--shadow);max-width:340px;margin:0 auto;}
+.cal-card{background:var(--card);border:1px solid var(--paper-edge);border-radius:var(--radius);padding:14px;box-shadow:0 4px 16px var(--shadow);}
 .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .cal-title{font-family:var(--serif);font-size:16px;color:var(--brown);font-weight:700;}
 .cal-nav{display:flex;gap:5px;}
@@ -116,14 +136,20 @@ button{font-family:inherit;cursor:pointer;}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
 .cal-dow{text-align:center;font-size:11px;font-weight:600;color:var(--ink-soft);padding:4px 0;font-family:var(--serif);}
 .cal-dow.sun{color:#b0562f;}
-.cal-cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;position:relative;border-radius:50%;font-size:13px;color:var(--ink);transition:all .18s;}
-.cal-cell.empty{visibility:hidden;}
+.cal-cell{min-height:58px;display:flex;flex-direction:column;position:relative;border-radius:7px;background:var(--paper-bg);border:1px solid var(--line);padding:2px;overflow:hidden;transition:all .15s;}
+.cal-cell.empty{visibility:hidden;border:none;background:transparent;}
+.cal-cell.noplan{background:transparent;border-color:transparent;}
 .cal-cell.plan{cursor:pointer;}
-.cal-cell.plan:hover{background:rgba(193,154,58,.2);transform:scale(1.12);}
-.cal-cell.today{outline:2px solid var(--gold);outline-offset:-2px;font-weight:700;}
-.cal-cell.sun{color:#b0562f;}
-.cal-cell.all-done{background:var(--leaf);color:#fff;font-weight:600;box-shadow:0 2px 7px rgba(78,122,74,.4);}
-.cal-cell.some-done{background:var(--amber);color:#5a4210;font-weight:600;box-shadow:0 2px 7px rgba(217,168,56,.4);}
+.cal-cell.plan:hover{border-color:var(--gold);box-shadow:0 2px 8px var(--shadow);}
+.cal-cell.today{border-color:var(--gold);box-shadow:0 0 0 1.5px var(--gold);}
+.cal-daynum{font-size:11px;font-weight:700;color:var(--ink);padding:0 2px;line-height:1.3;}
+.cal-cell.sun .cal-daynum{color:#b0562f;}
+.cal-badges{display:flex;flex-direction:column;gap:2px;margin-top:2px;}
+.cal-ub{font-size:9px;line-height:1.3;padding:1px 3px;border-radius:4px;display:flex;align-items:center;gap:2px;white-space:nowrap;overflow:hidden;background:var(--paper-book);color:var(--ink-faint);border:1px solid var(--line);}
+.cal-ub .nm{overflow:hidden;text-overflow:ellipsis;}
+.cal-ub .dia{margin-left:auto;flex-shrink:0;}
+.cal-ub.done{background:var(--leaf);color:#fff;border-color:var(--leaf);}
+.cal-ub.partial{background:var(--amber);color:#4a3210;border-color:var(--amber);}
 .cal-legend{display:flex;gap:12px;margin-top:12px;font-size:11.5px;color:var(--ink-soft);flex-wrap:wrap;justify-content:center;}
 .legend-dot{display:inline-block;width:13px;height:13px;border-radius:50%;vertical-align:-2px;margin-right:4px;}
 
@@ -135,23 +161,24 @@ button{font-family:inherit;cursor:pointer;}
 .book::before{left:0;background:linear-gradient(90deg,rgba(61,41,22,.55),transparent);}
 .book::after{right:0;background:linear-gradient(270deg,rgba(61,41,22,.35),transparent);}
 .spine{position:absolute;left:50%;top:0;bottom:0;width:46px;transform:translateX(-50%);z-index:3;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(90,63,36,.03)28%,rgba(90,63,36,.2)48%,rgba(90,63,36,.26)50%,rgba(90,63,36,.2)52%,rgba(90,63,36,.03)72%,transparent);}
-.page{flex:1;padding:32px 28px;position:relative;z-index:1;min-width:0;}
+.page{flex:1;padding:32px 28px;position:relative;z-index:1;min-width:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.05'/%3E%3C/svg%3E");}
 .page.left{background-color:var(--paper-book);box-shadow:inset -18px 0 26px -18px rgba(90,63,36,.3);}
 .page.right{background-color:var(--paper-book2);box-shadow:inset 18px 0 26px -18px rgba(90,63,36,.3);}
 .page-head{font-family:var(--serif);text-align:center;margin-bottom:4px;}
 .page-range{font-family:var(--serif);font-size:12px;letter-spacing:.14em;color:var(--gold-deep);text-transform:uppercase;}
 .page-book{font-family:var(--serif);font-size:21px;font-weight:700;color:var(--brown-deep);margin:2px 0;min-height:26px;}
 .page-rule{border:none;height:1px;margin:10px 0 16px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.verses{font-family:var(--serif);font-size:16.5px;line-height:2.05;letter-spacing:.01em;color:var(--ink);}
-.verse{margin:0 0 3px;display:flex;gap:7px;align-items:flex-start;}
-.verse .vnum{font-size:11px;color:var(--gold-deep);font-weight:700;flex-shrink:0;min-width:16px;text-align:right;padding-top:5px;}
-.verse .vtext{flex:1;}
-.verse .fav-btn{flex-shrink:0;border:none;background:transparent;font-size:16px;opacity:.3;padding:4px 6px;transition:all .18s;line-height:1;align-self:flex-start;margin-top:1px;min-width:34px;min-height:34px;}
-.verse .fav-btn:hover{opacity:.9;transform:scale(1.2);}
-.verse .fav-btn.on{opacity:1;}
-.verse .mem-btn{flex-shrink:0;border:none;background:transparent;font-size:14px;opacity:.3;padding:4px 4px;line-height:1;margin-top:3px;min-width:30px;min-height:30px;}
-.verse .mem-btn:hover{opacity:.9;transform:scale(1.15);}
-.verse .mem-btn.on{opacity:1;}
+/* 구절: 줄 사이(구절 안쪽) 간격은 좁게, 구절끼리 간격은 넉넉히 */
+.verses{font-family:var(--serif);font-size:16.5px;line-height:1.5;letter-spacing:.01em;color:var(--ink);}
+.verse{margin:0 0 13px;display:flex;gap:9px;align-items:flex-start;}
+.verse:last-child{margin-bottom:0;}
+.verse .vnum{font-size:11px;color:var(--gold-deep);font-weight:700;flex-shrink:0;min-width:20px;text-align:center;padding:3px 3px 0;border-radius:6px;cursor:pointer;user-select:none;-webkit-user-select:none;transition:all .18s;}
+.verse .vnum:hover{background:var(--gold-light);}
+.verse .vnum:active{transform:scale(.88);}
+.verse.fav-on .vnum{background:var(--gold);color:#fff;box-shadow:0 1px 5px rgba(116,84,58,.4);}
+.verse .vtext{flex:1;cursor:pointer;border-radius:4px;transition:color .15s;}
+.verse .vtext:hover{color:var(--gold-deep);}
+.verse.mem-on .vtext{text-decoration:underline;text-decoration-color:var(--leaf);text-decoration-thickness:2px;text-underline-offset:4px;}
 .chapter-label{font-family:var(--serif);font-size:14px;color:var(--brown);font-weight:700;margin:18px 0 8px;padding-bottom:4px;border-bottom:1px dotted var(--line);}
 .chapter-label:first-child{margin-top:0;}
 .page-foot{text-align:center;font-family:var(--serif);font-size:12px;color:var(--ink-faint);margin-top:20px;}
@@ -161,6 +188,52 @@ button{font-family:inherit;cursor:pointer;}
 .book-nav button:hover:not(:disabled){background:var(--gold);color:#fff;border-color:var(--gold);}
 .book-nav button:disabled{opacity:.4;cursor:not-allowed;}
 .book-nav .spread-info{font-family:var(--serif);font-size:13px;color:var(--ink-soft);}
+
+/* 읽기 진행 네모 블록 */
+.read-blocks-wrap{margin:2px 0 10px;}
+.read-blocks-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--serif);font-size:13px;color:var(--ink-soft);margin-bottom:8px;}
+.read-blocks-top b{color:var(--gold-deep);font-weight:700;}
+.read-blocks{display:flex;flex-wrap:wrap;gap:6px;}
+.read-block{width:26px;height:26px;border-radius:6px;border:1.5px solid var(--gold-light);background:var(--paper-book);cursor:pointer;position:relative;transition:all .25s cubic-bezier(.22,1,.36,1);box-shadow:inset 0 1px 2px rgba(90,80,50,.08);}
+.read-block:hover{transform:translateY(-2px);border-color:var(--gold);}
+.read-block.filled{background:linear-gradient(180deg,var(--gold),var(--gold-deep));border-color:var(--gold-deep);box-shadow:0 2px 8px rgba(169,138,78,.35);}
+.read-block.current{outline:2px solid var(--gold-deep);outline-offset:2px;}
+.read-block .bn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:var(--serif);color:var(--ink-faint);}
+.read-block.filled .bn{color:#fff;}
+.read-blocks-top .rb-right{display:flex;align-items:center;gap:10px;}
+
+/* 책갈피 */
+.bm-toggle{border:1px solid var(--gold-light);background:var(--paper-book);color:var(--gold-deep);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:99px;display:inline-flex;align-items:center;gap:5px;min-height:34px;transition:all .18s;}
+.bm-toggle:hover{border-color:var(--gold);}
+.bm-toggle.on{background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:#fff;border-color:var(--gold-deep);box-shadow:0 2px 8px rgba(116,84,58,.32);}
+.bm-list{display:grid;grid-template-columns:1fr;gap:10px;}
+.bm-item{position:relative;background:linear-gradient(180deg,var(--paper-book),var(--paper-book2));border:1px solid var(--gold-light);border-left:4px solid var(--gold);border-radius:10px;padding:12px 40px 12px 16px;cursor:pointer;transition:all .2s;overflow:hidden;}
+.bm-item::before{content:"🔖";position:absolute;top:8px;right:34px;font-size:13px;opacity:.5;}
+.bm-item:hover{transform:translateX(3px);box-shadow:0 4px 14px rgba(116,84,58,.22);}
+.bm-ref{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--brown-deep);}
+.bm-sub{font-size:12px;color:var(--ink-faint);margin-top:3px;}
+.bm-del{position:absolute;top:50%;right:8px;transform:translateY(-50%);border:none;background:transparent;color:#b0562f;font-size:16px;padding:4px 6px;min-width:32px;min-height:32px;border-radius:8px;}
+.bm-del:hover{background:rgba(176,86,47,.1);}
+.bm-empty{font-size:13.5px;color:var(--ink-faint);text-align:center;padding:8px 0;}
+@keyframes bmFlash{0%{background:var(--gold-light);}60%{background:var(--gold-light);}100%{background:transparent;}}
+.verse.bm-flash{animation:bmFlash 1.6s ease;border-radius:6px;}
+@media (min-width:720px){.bm-list{grid-template-columns:1fr 1fr;}}
+
+/* 오늘의 일기 */
+.diary-area textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-family:var(--serif);font-size:15px;line-height:1.7;color:var(--ink);background:var(--paper-book);}
+.diary-area textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(163,126,92,.18);}
+.diary-hint{font-size:12px;color:var(--ink-faint);margin-top:6px;}
+.diary-hint.saved{color:var(--leaf);font-weight:600;}
+.diary-list{display:grid;grid-template-columns:1fr;gap:12px;}
+.diary-item{position:relative;background:linear-gradient(180deg,var(--paper-book),var(--paper-book2));border:1px solid var(--paper-edge);border-left:4px solid var(--gold);border-radius:12px;padding:14px 44px 14px 16px;cursor:pointer;transition:all .2s;box-shadow:0 3px 12px var(--shadow);}
+.diary-item:hover{transform:translateY(-2px);box-shadow:0 6px 18px var(--shadow);}
+.diary-date{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--brown-deep);}
+.diary-range{display:inline-block;font-size:11.5px;color:var(--gold-deep);background:var(--gold-light);border-radius:99px;padding:2px 10px;margin-top:6px;font-family:var(--serif);}
+.diary-text{font-family:var(--serif);font-size:14.5px;color:var(--ink);line-height:1.65;margin-top:9px;white-space:pre-wrap;word-break:break-word;}
+.diary-del{position:absolute;top:10px;right:8px;border:none;background:transparent;color:#b0562f;font-size:16px;padding:4px 6px;min-width:32px;min-height:32px;border-radius:8px;}
+.diary-del:hover{background:rgba(176,86,47,.1);}
+.diary-empty{font-size:13.5px;color:var(--ink-faint);text-align:center;padding:14px 0;}
+@media (min-width:720px){.diary-list{grid-template-columns:1fr 1fr;}}
 
 /* 묵상 메모 */
 .memo-area textarea{width:100%;min-height:90px;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:var(--serif);font-size:15px;line-height:1.7;color:var(--ink);background:var(--paper-book);}
@@ -185,6 +258,8 @@ button{font-family:inherit;cursor:pointer;}
 .stat-name{font-size:13px;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;gap:5px;}
 .stat-num{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--brown);margin-top:4px;}
 .stat-unit{font-size:12px;color:var(--ink-faint);}
+.stat-sub{font-size:12px;color:var(--ink-soft);margin-top:6px;}
+.stat-sub b{color:var(--gold-deep);font-weight:700;}
 .family-summary{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:14px;color:var(--ink-soft);justify-content:center;}
 .family-summary b{color:var(--gold-deep);}
 
@@ -277,7 +352,7 @@ button{font-family:inherit;cursor:pointer;}
   .page{padding:24px 18px;}
   .page.left{box-shadow:none;border-bottom:1px dotted var(--line);}
   .page.right{box-shadow:none;}
-  .verses{font-size:16px;line-height:1.95;}
+  .verses{font-size:16px;line-height:1.5;}
 }
 @media (min-width:720px){
   .dash-grid{grid-template-columns:1fr 1fr;}
@@ -290,13 +365,13 @@ button{font-family:inherit;cursor:pointer;}
 
 /* 다크모드 */
 body.dark{
-  --paper-bg:#241a10;--paper-book:#3a2e1e;--paper-book2:#352a1b;--paper-edge:#4a3a24;
-  --ink:#ede0c8;--ink-soft:#c9b78f;--ink-faint:#9c8a66;
-  --gold:#d7b458;--gold-deep:#e6c877;--gold-light:#5c4a26;
-  --brown:#e0cfa8;--brown-deep:#f2e6c8;--leather:#4a3119;--leather-deep:#2e1e0e;
-  --line:#4a3a24;--card:#33281a;--leaf:#5a8a54;--amber:#c79a3a;
-  --shadow:rgba(0,0,0,.4);--shadow-strong:rgba(0,0,0,.6);
-  --heat-0:#3a2e1e;--heat-1:#3f4a34;--heat-2:#54703f;--heat-3:#6fa763;--heat-4:#8fc97f;
+  --paper-bg:#1c1f1b;--paper-book:#282c26;--paper-book2:#24281f;--paper-edge:#3a413a;
+  --ink:#e8e3d5;--ink-soft:#bab6a4;--ink-faint:#8b8877;
+  --gold:#c2a081;--gold-deep:#d6b897;--gold-light:#463a2e;
+  --brown:#d9d4c0;--brown-deep:#efe9d6;--leather:#465542;--leather-deep:#2c3628;
+  --line:#3a413a;--card:#282c26;--leaf:#6fa688;--amber:#c1a052;
+  --shadow:rgba(0,0,0,.42);--shadow-strong:rgba(0,0,0,.62);
+  --heat-0:#282c26;--heat-1:#38472f;--heat-2:#4f7048;--heat-3:#6fa763;--heat-4:#8fc97f;
   background-color:var(--paper-bg);
 }
 body.dark .streak{background:linear-gradient(180deg,#4a3a1e,#3a2c14);}
@@ -342,27 +417,30 @@ body.dark .mem-item.done{background:linear-gradient(180deg,#2e3a26,#28321f);}
 
   <!-- ===== 오늘의 말씀 뷰 ===== -->
   <div class="view" id="view-today">
-    <div class="dash-grid">
-      <div class="panel">
-        <div class="progress-top"><span class="progress-label">성경 1독 진행률</span><span class="progress-pct" id="pct">0%</span></div>
-        <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
-        <div class="progress-sub">
-          <span>읽은 날 <b id="doneCnt">0</b>/<span id="totalCnt">158</span>일</span>
-          <span>읽은 장 <b id="chapCnt">0</b>/1189장</span>
-        </div>
+    <div class="panel compact-top">
+      <div class="progress-top">
+        <span class="progress-label">성경 1독 진행률 · <b id="doneCnt">0</b>/<span id="totalCnt">158</span>일</span>
+        <span class="progress-pct" id="pct">0%</span>
       </div>
-      <div class="panel">
-        <div class="panel-title">👨‍👩‍👧‍👦 함께 읽는 사람</div>
-        <div class="user-strip" id="userStrip"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+      <div class="user-strip" id="userStrip"></div>
     </div>
 
-    <div class="panel">
-      <div class="panel-title">✨ 오늘 마음에 남은 말씀</div>
+    <details class="panel collapse-panel" id="favPanel">
+      <summary class="panel-title">✨ 마음에 남은 말씀 <span class="cp-count" id="favCount">0</span></summary>
       <div class="fav-list" id="favList"></div>
-    </div>
+    </details>
+
+    <details class="panel collapse-panel" id="bmPanel">
+      <summary class="panel-title">🔖 책갈피 <span class="cp-count" id="bmCount">0</span></summary>
+      <div class="bm-list" id="bmList"></div>
+    </details>
 
     <div class="section-title"><span id="bookSectionLabel">오늘의 말씀</span></div>
+    <div class="read-blocks-wrap">
+      <div class="read-blocks-top"><span>📖 오늘 읽기 진행</span><span class="rb-right"><button class="bm-toggle" id="btnBookmark">🔖 책갈피</button><span><b id="readBlocksInfo">0/0</b> 쪽</span></span></div>
+      <div class="read-blocks" id="readBlocks"></div>
+    </div>
     <div class="book-scene"><div class="book-wrap"><div class="book" id="book">
       <div class="spine"></div>
       <div class="page left" id="pageLeft"></div>
@@ -374,12 +452,11 @@ body.dark .mem-item.done{background:linear-gradient(180deg,#2e3a26,#28321f);}
       <button id="nextPage">다음 장 ›</button>
     </div>
 
-    <div class="section-title"><span>묵상 메모</span></div>
-    <div class="panel memo-area">
-      <div class="panel-title">📝 <span id="memoWho">오늘 느낀 점</span></div>
-      <textarea id="memoInput" placeholder="오늘 말씀에서 마음에 남은 것을 적어보세요…"></textarea>
-      <div class="memo-hint" id="memoHint">자동 저장됩니다.</div>
-      <div class="memo-others" id="memoOthers"></div>
+    <div class="section-title"><span>오늘의 일기</span></div>
+    <div class="panel diary-area">
+      <div class="panel-title">📔 <span id="diaryWho">오늘의 일기</span></div>
+      <textarea id="diaryInput" placeholder="오늘 읽은 말씀의 소감이나 느낀 점을 적어보세요…"></textarea>
+      <div class="diary-hint" id="diaryHint">자동 저장됩니다.</div>
     </div>
 
     <div class="complete-zone"><button class="btn-complete" id="btnComplete">오늘 읽기 완료</button></div>
@@ -398,12 +475,21 @@ body.dark .mem-item.done{background:linear-gradient(180deg,#2e3a26,#28321f);}
       </div>
       <div class="cal-grid" id="calGrid"></div>
       <div class="cal-legend">
-        <span><span class="legend-dot" style="background:var(--leaf)"></span>모두 완료</span>
-        <span><span class="legend-dot" style="background:var(--amber)"></span>일부 완료</span>
+        <span><span class="legend-dot" style="background:var(--leaf)"></span>읽기 완료</span>
+        <span><span class="legend-dot" style="background:var(--amber)"></span>읽는 중</span>
+        <span>📔 일기</span>
         <span><span class="legend-dot" style="background:transparent;border:2px solid var(--gold)"></span>오늘</span>
       </div>
     </div>
     <p style="text-align:center;font-size:13px;color:var(--ink-soft);margin-top:14px;">날짜를 누르면 그날의 말씀과 일기로 이동합니다.</p>
+
+    <div class="panel" style="margin-top:18px;">
+      <div class="panel-title">🗓️ <span id="diarySumTitle">이 달 돌아보기</span></div>
+      <div class="stats-grid" id="diarySummary"></div>
+    </div>
+
+    <div class="section-title"><span>나의 묵상 일기</span></div>
+    <div class="diary-list" id="diaryList"></div>
   </div>
 
   <!-- ===== 암기 뷰 ===== -->
@@ -485,6 +571,19 @@ body.dark .mem-item.done{background:linear-gradient(180deg,#2e3a26,#28321f);}
     <input type="text" id="syncUrl" placeholder="https://script.google.com/macros/s/.../exec">
     <label>가족 코드 (같은 코드를 쓰는 사람끼리 공유)</label>
     <input type="text" id="familyCode" placeholder="예: 우리집2026" maxlength="30">
+
+    <div style="margin-top:18px;padding-top:16px;border-top:1px dashed var(--line);">
+      <h3 style="font-size:16px;margin:0 0 4px;">🔔 텔레그램 미독 알림</h3>
+      <p class="desc" style="margin-bottom:10px;">설정한 시각까지 오늘 말씀을 읽지 않으면 텔레그램으로 알려줘요. <b>이 앱이 켜져 있을 때만</b> 보내집니다.</p>
+      <label>봇 토큰 (Bot Token)</label>
+      <input type="text" id="tgToken" placeholder="예: 123456:ABC-DEF...">
+      <label>채팅 ID (Chat ID)</label>
+      <input type="text" id="tgChat" placeholder="예: 987654321">
+      <label>알림 시각 (0~23시)</label>
+      <input type="text" id="tgHour" placeholder="예: 21" maxlength="2">
+      <button class="btn-ghost" id="tgTestBtn" style="margin-top:10px;width:100%;">테스트 메시지 보내기</button>
+    </div>
+
     <div class="mini-guide" id="familyGuide">
       <b>설정 방법</b><br>
       함께 드린 <b>안내문(README)</b>과 <b>google-apps-script.gs</b> 파일을 참고하세요. 한 번만 설정하면 됩니다.
@@ -539,19 +638,26 @@ const LS = {
 const K = {
   users:"lw2_users", sel:"lw2_sel", done:"lw2_done", fav:"lw2_fav", memo:"lw2_memo",
   mem:"lw2_memorize", dark:"lw2_dark", music:"lw2_music", vol:"lw2_vol",
-  syncUrl:"lw2_syncUrl", famCode:"lw2_famCode"
+  syncUrl:"lw2_syncUrl", famCode:"lw2_famCode", read:"lw2_read", bm:"lw2_bookmarks",
+  tgToken:"lw2_tgToken", tgChat:"lw2_tgChat", tgHour:"lw2_tgHour", tgLast:"lw2_tgLast"
 };
 
 /* ---------- 상태 ---------- */
 let users = LS.get(K.users, [
-  {id:"u"+Math.random().toString(36).slice(2,8), name:"민수", icon:"👨"},
-  {id:"u"+Math.random().toString(36).slice(2,8), name:"지은", icon:"👩"}
+  {id:"u"+Math.random().toString(36).slice(2,8), name:"민규", icon:"👦"},
+  {id:"u"+Math.random().toString(36).slice(2,8), name:"나예", icon:"👧"}
 ]);
+// 이전 기본 이름이 저장돼 있으면 새 기본값으로 정리(이름은 언제든 수정 가능)
+users.forEach(u=>{ if(u.name==="민수"){u.name="민규";u.icon="👦";} else if(u.name==="지은"){u.name="나예";u.icon="👧";} });
 let selUser = LS.get(K.sel, users[0].id);
 let done = LS.get(K.done, {});     // {uid:[iso,...]}
 let fav  = LS.get(K.fav, {});      // {uid:{"책 장:절":{text,ref,date,planId}}}
 let memo = LS.get(K.memo, {});     // {uid:{iso:"메모"}}
 let memorize = LS.get(K.mem, []);  // [{id,userId,verse,text,isMemorized,createdAt}]
+let readProg = LS.get(K.read, {}); // {uid:{planId: 읽은 쪽 수}}
+function readOf(uid){return readProg[uid]||(readProg[uid]={});}
+let bookmarks = LS.get(K.bm, {});  // {uid:[{id,book,chap,verse,ref,planId,createdAt}]}
+function bmOf(uid){return bookmarks[uid]||(bookmarks[uid]=[]);}
 
 const ICONS = ["👨","👩","👧","👦","🧑","👴","👵","🧒","👶","🙂"];
 const WD = ["일","월","화","수","목","금","토"];
@@ -584,8 +690,9 @@ function syncEnabled(){ return !!syncUrl && !!famCode; }
 function famKey(kind){ return "fam:"+famCode+":"+kind; }
 
 function collectSharedState(){
-  // 공유 대상: users, done, fav, memo, memorize
-  return { users, done, fav, memo, memorize };
+  // 공유 대상: users, done, fav, memo, memorize, readProg
+  // planDates: 서버(앱스 스크립트) 자동 알림이 '쉬는 날'을 구분하는 데 사용
+  return { users, done, fav, memo, memorize, readProg, bookmarks, planDates: PLAN.map(p=>p.id) };
 }
 function applySharedState(s){
   if(!s) return false;
@@ -595,10 +702,12 @@ function applySharedState(s){
   if(s.fav && JSON.stringify(s.fav)!==JSON.stringify(fav)){ fav=s.fav; changed=true; }
   if(s.memo && JSON.stringify(s.memo)!==JSON.stringify(memo)){ memo=s.memo; changed=true; }
   if(s.memorize && JSON.stringify(s.memorize)!==JSON.stringify(memorize)){ memorize=s.memorize; changed=true; }
+  if(s.readProg && JSON.stringify(s.readProg)!==JSON.stringify(readProg)){ readProg=s.readProg; changed=true; }
+  if(s.bookmarks && JSON.stringify(s.bookmarks)!==JSON.stringify(bookmarks)){ bookmarks=s.bookmarks; changed=true; }
   if(changed){
     // 선택 사용자가 사라졌으면 복구
     if(!users.find(u=>u.id===selUser)) selUser=users[0]?.id;
-    LS.set(K.users,users);LS.set(K.done,done);LS.set(K.fav,fav);LS.set(K.memo,memo);LS.set(K.mem,memorize);
+    LS.set(K.users,users);LS.set(K.done,done);LS.set(K.fav,fav);LS.set(K.memo,memo);LS.set(K.mem,memorize);LS.set(K.read,readProg);LS.set(K.bm,bookmarks);
   }
   return changed;
 }
@@ -658,7 +767,7 @@ function setSyncBadge(online, txt){
 
 /* 저장 후 시트에도 반영하는 래퍼 */
 function saveAndSync(){
-  LS.set(K.users,users);LS.set(K.done,done);LS.set(K.fav,fav);LS.set(K.memo,memo);LS.set(K.mem,memorize);
+  LS.set(K.users,users);LS.set(K.done,done);LS.set(K.fav,fav);LS.set(K.memo,memo);LS.set(K.mem,memorize);LS.set(K.read,readProg);LS.set(K.bm,bookmarks);
   pushToSheet();
 }
 
@@ -667,12 +776,10 @@ function saveAndSync(){
    ===================================================================== */
 function updateProgress(){
   const arr=doneOf(selUser);
-  let chaps=0; arr.forEach(id=>{const p=planByDate[id];if(p)chaps+=p.chapters.length;});
   const pct=Math.round(arr.length/PLAN.length*100);
   document.getElementById("pct").textContent=pct+"%";
   document.getElementById("fill").style.width=pct+"%";
   document.getElementById("doneCnt").textContent=arr.length;
-  document.getElementById("chapCnt").textContent=chaps;
 }
 function computeStreak(uid){
   const arr=new Set(doneOf(uid));
@@ -702,8 +809,9 @@ function renderUsers(){
     chip.innerHTML=`<span class="ava">${u.icon}</span>${u.name}`;
     chip.addEventListener("click",()=>{
       selUser=u.id; LS.set(K.sel,selUser);
-      renderUsers();updateProgress();updateStreak();renderSpread();renderMemo();
-      renderCalendar();renderStats();renderHeatmap();
+      if(currentPlan){const sv=readOf(selUser)[currentPlan.id]||1;spreadIndex=Math.min(Math.max(sv-1,0),Math.max(pages.length-1,0));}
+      renderUsers();updateProgress();updateStreak();renderSpread();renderBookmarks();renderDiaryBox();
+      renderCalendar();renderStats();renderHeatmap();renderDiaryList();renderDiarySummary();
     });
     strip.appendChild(chip);
   });
@@ -720,21 +828,22 @@ function renderUsers(){
    ===================================================================== */
 function renderFav(){
   const list=document.getElementById("favList");list.innerHTML="";
-  const tIso=todayISO();let any=false;
+  const tIso=todayISO();let any=false,cnt=0;
   users.forEach(u=>{
     const favs=favOf(u.id);const entries=Object.entries(favs);
     if(entries.length===0)return;
     let todays=entries.filter(([k,v])=>v.date===tIso);
     let pick=todays.length?todays:entries.slice(-1);
     pick.forEach(([key,v])=>{
-      any=true;
+      any=true;cnt++;
       const item=document.createElement("div");item.className="fav-item";
       item.innerHTML=`<div class="fav-who">${u.icon} ${u.name}</div><div class="fav-text">"${v.text}"</div><div class="fav-ref">❤️ ${v.ref}</div>`;
       item.addEventListener("click",()=>{if(v.planId&&planByDate[v.planId]){switchView("today");openPlan(planByDate[v.planId]);}});
       list.appendChild(item);
     });
   });
-  if(!any)list.innerHTML=`<div class="fav-empty">아직 저장된 말씀이 없어요. 본문에서 ♡ 를 눌러 마음에 남은 구절을 담아보세요.</div>`;
+  if(!any)list.innerHTML=`<div class="fav-empty">아직 저장된 말씀이 없어요. 본문에서 <b>절 번호를 길게(꾹) 누르면</b> 여기에 담겨요.</div>`;
+  const fc=document.getElementById("favCount");if(fc)fc.textContent=cnt;
 }
 
 /* =====================================================================
@@ -756,16 +865,25 @@ function renderCalendar(){
   const tIso=todayISO();
   for(let d=1;d<=dim;d++){
     const iso=isoOf(calYear,calMonth,d);const dow=new Date(calYear,calMonth-1,d).getDay();
-    const cell=document.createElement("div");cell.className="cal-cell";cell.textContent=d;
-    if(dow===0)cell.classList.add("sun");
-    if(iso===tIso)cell.classList.add("today");
-    if(planByDate[iso]){
-      cell.classList.add("plan");
-      const st=dayStatus(iso);
-      if(st==="all")cell.classList.add("all-done");
-      else if(st==="some")cell.classList.add("some-done");
-      cell.addEventListener("click",()=>{switchView("today");openPlan(planByDate[iso]);});
+    const plan=planByDate[iso];
+    const cell=document.createElement("div");
+    cell.className="cal-cell"+(plan?" plan":" noplan")+(dow===0?" sun":"")+(iso===tIso?" today":"");
+    let html=`<div class="cal-daynum">${d}</div>`;
+    if(plan){
+      html+=`<div class="cal-badges">`;
+      users.forEach(u=>{
+        const isdone=(done[u.id]||[]).includes(iso);
+        const rp=(readProg[u.id]||{})[iso]||0;
+        const partial=!isdone && rp>0;
+        const dm=(memo[u.id]||{})[iso];
+        const dia=!!(dm&&dm.trim());
+        const cls=isdone?"done":(partial?"partial":"");
+        html+=`<span class="cal-ub ${cls}"><span class="nm">${u.name}</span>${dia?'<span class="dia">📔</span>':''}</span>`;
+      });
+      html+=`</div>`;
     }
+    cell.innerHTML=html;
+    if(plan)cell.addEventListener("click",()=>{switchView("today");openPlan(plan);});
     grid.appendChild(cell);
   }
 }
@@ -773,7 +891,19 @@ function renderCalendar(){
 /* =====================================================================
    성경책
    ===================================================================== */
-let currentPlan=null,spreadIndex=0;
+let currentPlan=null,spreadIndex=0,pages=[];
+const VERSES_PER_PAGE=10;   // 한 쪽(펼침)에 담을 절 수 — 약 10절
+/* 하루 분량의 모든 절을 이어붙여 약 10절씩 쪽으로 나눔 */
+function buildPages(plan){
+  const flat=[];
+  plan.chapters.forEach(([book,chap])=>{
+    const arr=(BIBLE[book]||{})[chap]||[];
+    arr.forEach(([vnum,txt])=>flat.push({book,chap,vnum,txt}));
+  });
+  const out=[];
+  for(let i=0;i<flat.length;i+=VERSES_PER_PAGE) out.push(flat.slice(i,i+VERSES_PER_PAGE));
+  return out.length?out:[[]];
+}
 function rangeText(plan){
   const cs=plan.chapters;const parts=[];let i=0;
   while(i<cs.length){const b=cs[i][0];let j=i;
@@ -781,104 +911,278 @@ function rangeText(plan){
     parts.push(i===j?`${b} ${cs[i][1]}`:`${b} ${cs[i][1]}-${cs[j][1]}`);i=j+1;}
   return parts.join(", ");
 }
-function chapterHTML(bookName,chapNum){
-  const versesArr=(BIBLE[bookName]||{})[chapNum]||[];
+/* 절 목록(청크)을 HTML로 — 장이 바뀌면 장 제목을 끼워 넣음
+   · 본문(vtext) 클릭 → 암기(밑줄)  · 절 번호(vnum) 꾹 누르기 → 마음에 남은 말씀 */
+function versesHTML(chunk){
   const favs=favOf(selUser);
-  let h=`<div class="chapter-label">${bookName} ${chapNum}장</div><div class="verses">`;
-  if(versesArr.length===0)h+=`<p class="verse"><span class="vtext">본문을 불러올 수 없습니다.</span></p>`;
-  else versesArr.forEach(([vnum,txt])=>{
-    const key=`${bookName} ${chapNum}:${vnum}`;
-    const on=favs[key]?"on":"";const heart=favs[key]?"❤️":"🤍";
-    h+=`<p class="verse"><span class="vnum">${vnum}</span><span class="vtext">${txt}</span>
-      <button class="mem-btn" data-book="${bookName}" data-chap="${chapNum}" data-verse="${vnum}" title="암기 추가">📘</button>
-      <button class="fav-btn ${on}" data-book="${bookName}" data-chap="${chapNum}" data-verse="${vnum}" title="마음에 담기">${heart}</button></p>`;
+  let h=`<div class="verses">`,lastKey="";
+  if(chunk.length===0){h+=`<p class="verse"><span class="vtext">본문을 불러올 수 없습니다.</span></p></div>`;return h;}
+  chunk.forEach(v=>{
+    const ck=v.book+" "+v.chap;
+    if(ck!==lastKey){h+=`<div class="chapter-label">${v.book} ${v.chap}장</div>`;lastKey=ck;}
+    const ref=`${v.book} ${v.chap}:${v.vnum}`;
+    const isFav=!!favs[ref];
+    const isMem=memorize.some(m=>m.userId===selUser&&m.verse===ref);
+    h+=`<p class="verse${isMem?' mem-on':''}${isFav?' fav-on':''}" data-book="${v.book}" data-chap="${v.chap}" data-verse="${v.vnum}"><span class="vnum">${v.vnum}</span><span class="vtext">${v.txt}</span></p>`;
   });
   h+=`</div>`;return h;
 }
+/* 마음에 남은 말씀 토글 (절 번호 꾹 누르기) */
+function toggleFav(b,c,v,p){
+  const key=`${b} ${c}:${v}`;const favs=favOf(selUser);
+  if(favs[key]){delete favs[key];p.classList.remove("fav-on");showToast("마음에 남은 말씀에서 뺐어요");}
+  else{
+    const arr=(BIBLE[b]||{})[c]||[];const found=arr.find(x=>x[0]===v);
+    favs[key]={text:found?found[1]:"",ref:`${SHORT[b]||b} ${c}:${v}`,date:currentPlan.id,planId:currentPlan.id};
+    p.classList.add("fav-on");showToast("오늘 마음에 남은 말씀으로 저장되었습니다.");
+  }
+  saveAndSync();renderFav();
+}
+/* 암기 토글 (본문 클릭 → 밑줄 + 암기 목록) */
+function toggleMemVerse(b,c,v,p){
+  const ref=`${b} ${c}:${v}`;
+  const idx=memorize.findIndex(m=>m.userId===selUser&&m.verse===ref);
+  if(idx>=0){memorize.splice(idx,1);p.classList.remove("mem-on");showToast("암기 목록에서 뺐어요");}
+  else{
+    const arr=(BIBLE[b]||{})[c]||[];const found=arr.find(x=>x[0]===v);
+    memorize.push({id:"v"+Date.now(),userId:selUser,verse:ref,text:found?found[1]:"",isMemorized:false,createdAt:Date.now()});
+    p.classList.add("mem-on");showToast("암기 목록에 추가했어요 📘");
+  }
+  saveAndSync();renderMemorize();
+}
 function bindVerseButtons(container){
-  container.querySelectorAll(".fav-btn").forEach(btn=>{
-    btn.addEventListener("click",e=>{
-      e.stopPropagation();
-      const b=btn.dataset.book,c=+btn.dataset.chap,v=+btn.dataset.verse;
-      const key=`${b} ${c}:${v}`;const favs=favOf(selUser);
-      if(favs[key]){delete favs[key];btn.classList.remove("on");btn.textContent="🤍";}
-      else{
-        const arr=(BIBLE[b]||{})[c]||[];const found=arr.find(x=>x[0]===v);
-        favs[key]={text:found?found[1]:"",ref:`${SHORT[b]||b} ${c}:${v}`,date:currentPlan.id,planId:currentPlan.id};
-        btn.classList.add("on");btn.textContent="❤️";showToast("마음에 담았어요 ❤️");
-      }
-      saveAndSync();renderFav();
-    });
-  });
-  container.querySelectorAll(".mem-btn").forEach(btn=>{
-    btn.addEventListener("click",e=>{
-      e.stopPropagation();
-      const b=btn.dataset.book,c=+btn.dataset.chap,v=+btn.dataset.verse;
-      const arr=(BIBLE[b]||{})[c]||[];const found=arr.find(x=>x[0]===v);
-      const ref=`${b} ${c}:${v}`;
-      if(memorize.some(m=>m.userId===selUser&&m.verse===ref)){showToast("이미 암기 목록에 있어요");return;}
-      memorize.push({id:"v"+Date.now(),userId:selUser,verse:ref,text:found?found[1]:"",isMemorized:false,createdAt:Date.now()});
-      saveAndSync();renderMemorize();showToast("암기 목록에 추가했어요 📘");
-    });
+  container.querySelectorAll(".verse").forEach(p=>{
+    if(!p.dataset.verse)return;
+    const b=p.dataset.book,c=+p.dataset.chap,v=+p.dataset.verse;
+    const vtext=p.querySelector(".vtext"),vnum=p.querySelector(".vnum");
+    // 본문 클릭 → 암기 토글
+    if(vtext)vtext.addEventListener("click",()=>toggleMemVerse(b,c,v,p));
+    // 절 번호 꾹 누르기(약 0.5초) → 마음에 남은 말씀
+    if(vnum){
+      let timer=null,fired=false;
+      const start=()=>{fired=false;timer=setTimeout(()=>{fired=true;toggleFav(b,c,v,p);},500);};
+      const cancel=()=>{if(timer){clearTimeout(timer);timer=null;}};
+      vnum.addEventListener("mousedown",start);
+      vnum.addEventListener("mouseup",cancel);
+      vnum.addEventListener("mouseleave",cancel);
+      vnum.addEventListener("touchstart",start,{passive:true});
+      vnum.addEventListener("touchend",e=>{cancel();if(fired)e.preventDefault();});
+      vnum.addEventListener("touchmove",cancel);
+      vnum.addEventListener("contextmenu",e=>e.preventDefault());
+    }
   });
 }
 function renderSpread(){
-  const cs=currentPlan.chapters;const leftIdx=spreadIndex*2,rightIdx=leftIdx+1;
+  const chunk=pages[spreadIndex]||[];
   const L=document.getElementById("pageLeft"),R=document.getElementById("pageRight");
   const range=rangeText(currentPlan);
+  const half=Math.ceil(chunk.length/2);
+  const leftChunk=chunk.slice(0,half),rightChunk=chunk.slice(half);
   let lh=`<div class="page-head"><div class="page-range">오늘의 범위</div><div class="page-book">${range}</div></div><hr class="page-rule">`;
-  if(leftIdx<cs.length)lh+=chapterHTML(cs[leftIdx][0],cs[leftIdx][1]);
+  lh+=versesHTML(leftChunk);
   L.innerHTML=lh;
   let rh=`<div class="page-head"><div class="page-range">${currentPlan.m}월 ${currentPlan.d}일 (${currentPlan.w})</div><div class="page-book">&nbsp;</div></div><hr class="page-rule">`;
-  if(rightIdx<cs.length)rh+=chapterHTML(cs[rightIdx][0],cs[rightIdx][1]);
-  else rh+=`<div class="page-foot" style="margin-top:70px;">— 오늘의 마지막 장입니다 —</div>`;
+  if(rightChunk.length)rh+=versesHTML(rightChunk);
+  else rh+=`<div class="page-foot" style="margin-top:70px;">— ${spreadIndex>=pages.length-1?"오늘의 마지막 쪽입니다":""} —</div>`;
   R.innerHTML=rh;
   bindVerseButtons(L);bindVerseButtons(R);
   L.classList.remove("page-turn");R.classList.remove("page-turn");void L.offsetWidth;
   L.classList.add("page-turn");R.classList.add("page-turn");
-  const totalSpreads=Math.ceil(cs.length/2);
-  document.getElementById("spreadInfo").textContent=`${spreadIndex+1} / ${totalSpreads} 펼침`;
+  document.getElementById("spreadInfo").textContent=`${spreadIndex+1} / ${pages.length} 쪽`;
   document.getElementById("prevPage").disabled=(spreadIndex===0);
-  document.getElementById("nextPage").disabled=(spreadIndex>=totalSpreads-1);
+  document.getElementById("nextPage").disabled=(spreadIndex>=pages.length-1);
   syncCompleteBtn();
+  renderReadBlocks();
+  syncBookmarkBtn();
 }
 function openPlan(plan){
-  currentPlan=plan;spreadIndex=0;
+  currentPlan=plan;pages=buildPages(plan);
+  const saved=readOf(selUser)[plan.id]||1;               // 마지막 읽던 쪽 복원
+  spreadIndex=Math.min(Math.max(saved-1,0),Math.max(pages.length-1,0));
   document.getElementById("bookSectionLabel").textContent=(plan.id===todayISO()?"오늘의 말씀":`${plan.m}월 ${plan.d}일의 말씀`);
-  renderSpread();renderMemo();
+  renderSpread();markRead();renderDiaryBox();
   document.getElementById("book").scrollIntoView({behavior:"smooth",block:"center"});
 }
 
 /* =====================================================================
-   묵상 메모 (본인 작성 + 가족 메모 열람)
+   읽기 진행 네모 블록 (읽은 쪽만큼 채워짐 + 클릭 시 이동)
    ===================================================================== */
-let memoTimer=null;
-function renderMemo(){
-  const u=users.find(x=>x.id===selUser);
-  document.getElementById("memoWho").textContent=`${u?u.name:""}님의 오늘 느낀 점`;
-  document.getElementById("memoInput").value=memoOf(selUser)[currentPlan?.id]||"";
-  const h=document.getElementById("memoHint");h.textContent="자동 저장됩니다.";h.classList.remove("memo-saved");
-  // 가족 메모
-  const others=document.getElementById("memoOthers");others.innerHTML="";
-  users.forEach(x=>{
-    if(x.id===selUser)return;
-    const t=memoOf(x.id)[currentPlan?.id];
-    if(t&&t.trim()){
-      const d=document.createElement("div");d.className="memo-other";
-      d.innerHTML=`<div class="who">${x.icon} ${x.name}</div><div class="txt">${t}</div>`;
-      others.appendChild(d);
-    }
+function markRead(){
+  if(!currentPlan)return;
+  const rp=readOf(selUser),reached=spreadIndex+1;
+  rp[currentPlan.id]=reached;   // 현재 위치까지만 읽은 것으로 → 뒤로 가면 블록/완료 자동 취소
+  const wasDone=isDone(selUser,currentPlan.id);
+  const nowDone=pages.length>0 && reached>=pages.length;
+  if(nowDone&&!wasDone){doneOf(selUser).push(currentPlan.id);showToast("끝까지 읽었어요 · 오늘 읽기 완료");celebrate();}
+  else if(!nowDone&&wasDone){const arr=doneOf(selUser);const i=arr.indexOf(currentPlan.id);if(i>=0)arr.splice(i,1);showToast("읽기 완료를 취소했어요");}
+  saveAndSync();updateProgress();updateStreak();renderCalendar();renderStats();renderHeatmap();syncCompleteBtn();renderReadBlocks();
+}
+function renderReadBlocks(){
+  const wrap=document.getElementById("readBlocks");if(!wrap||!currentPlan)return;
+  wrap.innerHTML="";
+  const total=pages.length,read=readOf(selUser)[currentPlan.id]||0;
+  for(let i=0;i<total;i++){
+    const b=document.createElement("div");
+    b.className="read-block"+(i<read?" filled":"")+(i===spreadIndex?" current":"");
+    b.innerHTML=`<span class="bn">${i+1}</span>`;b.title=`${i+1}쪽으로 이동`;
+    b.addEventListener("click",()=>{spreadIndex=i;playPageTurn();renderSpread();markRead();document.getElementById("book").scrollIntoView({behavior:"smooth",block:"center"});});
+    wrap.appendChild(b);
+  }
+  const info=document.getElementById("readBlocksInfo");if(info)info.textContent=`${Math.min(read,total)}/${total}`;
+}
+
+/* =====================================================================
+   책갈피 (사용자별 저장 + 가족 동기화)
+   ===================================================================== */
+function currentPageAnchor(){
+  const chunk=pages[spreadIndex]||[];const v=chunk[0];
+  return v?{book:v.book,chap:v.chap,verse:v.vnum}:null;
+}
+function isBookmarkedNow(){
+  const a=currentPageAnchor();if(!a||!currentPlan)return false;
+  return bmOf(selUser).some(b=>b.book===a.book&&b.chap===a.chap&&b.verse===a.verse);
+}
+function syncBookmarkBtn(){
+  const btn=document.getElementById("btnBookmark");if(!btn)return;
+  const on=isBookmarkedNow();
+  btn.classList.toggle("on",on);
+  btn.textContent=on?"🔖 책갈피됨":"🔖 책갈피";
+}
+function toggleBookmark(){
+  if(!currentPlan)return;
+  const a=currentPageAnchor();if(!a){showToast("책갈피할 위치가 없어요");return;}
+  const list=bmOf(selUser);
+  const idx=list.findIndex(b=>b.book===a.book&&b.chap===a.chap&&b.verse===a.verse);
+  if(idx>=0){list.splice(idx,1);showToast("책갈피를 뺐어요");}
+  else{
+    list.push({id:"b"+Date.now(),book:a.book,chap:a.chap,verse:a.verse,ref:`${SHORT[a.book]||a.book} ${a.chap}:${a.verse}`,planId:currentPlan.id,createdAt:Date.now()});
+    showToast("책갈피를 꽂았어요 🔖");
+  }
+  saveAndSync();syncBookmarkBtn();renderBookmarks();
+}
+function renderBookmarks(){
+  const box=document.getElementById("bmList");if(!box)return;
+  box.innerHTML="";
+  const list=bmOf(selUser).slice().sort((a,b)=>b.createdAt-a.createdAt);
+  const bc=document.getElementById("bmCount");if(bc)bc.textContent=list.length;
+  if(list.length===0){box.innerHTML=`<div class="bm-empty">아직 책갈피가 없어요. 읽던 쪽에서 <b>🔖 책갈피</b>를 누르면 이곳에 표시됩니다.</div>`;return;}
+  list.forEach(bm=>{
+    const p=planByDate[bm.planId];const when=p?`${p.m}월 ${p.d}일`:"";
+    const item=document.createElement("div");item.className="bm-item";
+    item.innerHTML=`<div class="bm-ref">${bm.ref}</div><div class="bm-sub">${bm.book} ${bm.chap}장${when?" · "+when:""}</div><button class="bm-del" title="삭제">🗑</button>`;
+    item.addEventListener("click",()=>gotoBookmark(bm));
+    item.querySelector(".bm-del").addEventListener("click",e=>{
+      e.stopPropagation();
+      bookmarks[selUser]=bmOf(selUser).filter(x=>x.id!==bm.id);
+      saveAndSync();renderBookmarks();syncBookmarkBtn();showToast("책갈피를 삭제했어요");
+    });
+    box.appendChild(item);
   });
 }
-document.getElementById("memoInput").addEventListener("input",e=>{
+function findPageOfVerse(book,chap,verse){
+  for(let i=0;i<pages.length;i++){
+    if(pages[i].some(v=>v.book===book&&v.chap===chap&&v.vnum===verse))return i;
+  }
+  return -1;
+}
+function highlightVerse(book,chap,verse){
+  setTimeout(()=>{
+    const el=document.querySelector(`.verse[data-book="${book}"][data-chap="${chap}"][data-verse="${verse}"]`);
+    if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("bm-flash");setTimeout(()=>el.classList.remove("bm-flash"),1600);}
+  },80);
+}
+function gotoBookmark(bm){
+  const plan=planByDate[bm.planId]||PLAN.find(p=>p.chapters.some(ch=>ch[0]===bm.book&&ch[1]===bm.chap));
+  if(!plan){showToast("책갈피 위치를 찾을 수 없어요");return;}
+  switchView("today");
+  openPlan(plan);
+  const idx=findPageOfVerse(bm.book,bm.chap,bm.verse);
+  if(idx>=0){spreadIndex=idx;renderSpread();}   // 진행도는 건드리지 않고 위치만 이동
+  highlightVerse(bm.book,bm.chap,bm.verse);
+}
+document.getElementById("btnBookmark").addEventListener("click",toggleBookmark);
+
+/* 묵상 메모 기능은 제거됨 — 다른 호출부 호환을 위한 빈 함수 */
+function renderMemo(){}
+
+/* =====================================================================
+   오늘의 일기 (memo 저장소 재사용 · 사용자별 저장 + 가족 동기화)
+   ===================================================================== */
+function renderDiaryBox(){
+  const input=document.getElementById("diaryInput");if(!input||!currentPlan)return;
+  const isToday=currentPlan.id===todayISO();
+  const u=users.find(x=>x.id===selUser);
+  document.getElementById("diaryWho").textContent=(isToday?"오늘의 일기":`${currentPlan.m}월 ${currentPlan.d}일의 일기`)+(u?` · ${u.name}`:"");
+  input.value=memoOf(selUser)[currentPlan.id]||"";
+  const h=document.getElementById("diaryHint");h.textContent="자동 저장됩니다.";h.classList.remove("saved");
+}
+let diaryTimer=null;
+document.getElementById("diaryInput").addEventListener("input",e=>{
   if(!currentPlan)return;
-  memoOf(selUser)[currentPlan.id]=e.target.value;
-  clearTimeout(memoTimer);
-  memoTimer=setTimeout(()=>{
+  const v=e.target.value;
+  if(v.trim())memoOf(selUser)[currentPlan.id]=v; else delete memoOf(selUser)[currentPlan.id];
+  clearTimeout(diaryTimer);
+  diaryTimer=setTimeout(()=>{
     saveAndSync();
-    const h=document.getElementById("memoHint");h.textContent="저장됨 ✓";h.classList.add("memo-saved");
+    const h=document.getElementById("diaryHint");h.textContent="저장됨 ✓";h.classList.add("saved");
+    renderDiaryList();renderDiarySummary();
   },600);
 });
+function renderDiaryList(){
+  const box=document.getElementById("diaryList");if(!box)return;
+  box.innerHTML="";
+  const m=memoOf(selUser);
+  const entries=Object.keys(m).filter(iso=>m[iso]&&m[iso].trim()).sort().reverse(); // 최신 날짜 먼저
+  if(entries.length===0){box.innerHTML=`<div class="diary-empty">아직 쓴 일기가 없어요. 말씀을 읽고 <b>오늘의 일기</b>에 소감을 남겨보세요.</div>`;return;}
+  entries.forEach(iso=>{
+    const p=planByDate[iso];
+    const d=new Date(iso+"T00:00:00");
+    const dateLabel=`${d.getMonth()+1}월 ${d.getDate()}일 (${WD[d.getDay()]})`;
+    const range=p?rangeText(p):"";
+    const item=document.createElement("div");item.className="diary-item";
+    item.innerHTML=`<div class="diary-date">${dateLabel}</div>${range?`<span class="diary-range">📖 ${range}</span>`:""}<div class="diary-text"></div><button class="diary-del" title="삭제">🗑</button>`;
+    item.querySelector(".diary-text").textContent=m[iso];
+    if(p)item.addEventListener("click",()=>{switchView("today");openPlan(p);});
+    item.querySelector(".diary-del").addEventListener("click",e=>{
+      e.stopPropagation();
+      delete memoOf(selUser)[iso];saveAndSync();renderDiaryList();renderDiarySummary();
+      if(currentPlan&&currentPlan.id===iso)renderDiaryBox();
+      showToast("일기를 삭제했어요");
+    });
+    box.appendChild(item);
+  });
+}
+function renderDiarySummary(){
+  const grid=document.getElementById("diarySummary");if(!grid)return;
+  const y=calYear||2026,mo=calMonth||7;
+  document.getElementById("diarySumTitle").textContent=`${y}년 ${mo}월 돌아보기`;
+  const doneSet=new Set(doneOf(selUser));
+  const pfx=y+"-"+String(mo).padStart(2,"0")+"-";
+  let readDays=0,planDays=0;
+  PLAN.forEach(p=>{
+    if(p.id.indexOf(pfx)!==0)return;
+    planDays++;
+    if(doneSet.has(p.id))readDays++;
+  });
+  grid.innerHTML=
+    `<div class="stat-card"><div class="stat-name">📖 읽은 날</div><div class="stat-num">${readDays}<span class="stat-unit">/${planDays}일</span></div></div>`;
+}
+
+/* 책장 넘기는 소리 (필터드 노이즈 스위시) — 배경음악과 무관하게 재생 */
+function playPageTurn(){
+  try{
+    ensureCtx();
+    const ctx=audioCtx,now=ctx.currentTime,dur=0.34;
+    const n=Math.floor(ctx.sampleRate*dur),buf=ctx.createBuffer(1,n,ctx.sampleRate),d=buf.getChannelData(0);
+    for(let i=0;i<n;i++){const t=i/n;const env=Math.pow(1-t,2.2)*Math.min(1,t*10);d[i]=(Math.random()*2-1)*env;}
+    const src=ctx.createBufferSource();src.buffer=buf;
+    const bp=ctx.createBiquadFilter();bp.type="bandpass";bp.Q.value=0.8;
+    bp.frequency.setValueAtTime(1500,now);bp.frequency.linearRampToValueAtTime(4800,now+dur*0.65);
+    const g=ctx.createGain();g.gain.setValueAtTime(0.55,now);g.gain.exponentialRampToValueAtTime(0.001,now+dur);
+    src.connect(bp);bp.connect(g);g.connect(ctx.destination);
+    src.start(now);src.stop(now+dur);
+  }catch(e){}
+}
 
 /* =====================================================================
    완료 버튼
@@ -891,9 +1195,14 @@ function syncCompleteBtn(){
 document.getElementById("btnComplete").addEventListener("click",()=>{
   if(!currentPlan)return;
   const arr=doneOf(selUser);const id=currentPlan.id;const idx=arr.indexOf(id);
-  if(idx>=0)arr.splice(idx,1);
-  else{arr.push(id);showToast("오늘의 생명의 말씀 읽기 완료");celebrate();}
-  saveAndSync();updateProgress();updateStreak();renderCalendar();renderStats();renderHeatmap();syncCompleteBtn();
+  if(idx>=0){ // 완료 취소 → 한 쪽 뒤로
+    spreadIndex=Math.max(pages.length-2,0);readOf(selUser)[id]=spreadIndex+1;arr.splice(idx,1);
+    showToast("읽기 완료를 취소했어요");
+  }else{ // 완료 → 마지막 쪽으로
+    arr.push(id);spreadIndex=Math.max(pages.length-1,0);readOf(selUser)[id]=pages.length;
+    showToast("오늘의 생명의 말씀 읽기 완료");celebrate();
+  }
+  saveAndSync();updateProgress();updateStreak();renderCalendar();renderStats();renderHeatmap();syncCompleteBtn();renderSpread();
 });
 
 /* =====================================================================
@@ -904,8 +1213,9 @@ function renderStats(){
   let max=-1,maxUser=null,sum=0;
   users.forEach(u=>{
     const c=doneOf(u.id).length;sum+=c;if(c>max){max=c;maxUser=u;}
+    let chaps=0; doneOf(u.id).forEach(id=>{const p=planByDate[id];if(p)chaps+=p.chapters.length;});
     const card=document.createElement("div");card.className="stat-card";
-    card.innerHTML=`<div class="stat-name">${u.icon} ${u.name}</div><div class="stat-num">${c}<span class="stat-unit">일</span></div>`;
+    card.innerHTML=`<div class="stat-name">${u.icon} ${u.name}</div><div class="stat-num">${c}<span class="stat-unit">일</span></div><div class="stat-sub">📚 읽은 장 <b>${chaps}</b>장</div>`;
     grid.appendChild(card);
   });
   const avg=users.length?Math.round(sum/users.length):0;
@@ -955,7 +1265,7 @@ function renderMemorize(){
   const others=memorize.filter(m=>m.userId!==selUser);
   const ordered=[...mine,...others];
   if(ordered.length===0){
-    list.innerHTML=`<div class="fav-empty">아직 암기할 구절이 없어요. 위에서 추가하거나, 본문의 📘 버튼으로 담아보세요.</div>`;
+    list.innerHTML=`<div class="fav-empty">아직 암기할 구절이 없어요. 위에서 추가하거나, <b>본문 구절을 누르면</b> 밑줄과 함께 담겨요.</div>`;
   }else{
     ordered.forEach(m=>{
       const owner=users.find(u=>u.id===m.userId);
@@ -1017,7 +1327,7 @@ function switchView(name){
   ["today","calendar","memorize","stats"].forEach(v=>{
     document.getElementById("view-"+v).classList.toggle("hidden",v!==name);
   });
-  if(name==="calendar")renderCalendar();
+  if(name==="calendar"){renderCalendar();renderDiaryList();renderDiarySummary();}
   if(name==="memorize")renderMemorize();
   if(name==="stats"){renderStats();initHeatSelectors();renderHeatmap();}
   window.scrollTo({top:0,behavior:"smooth"});
@@ -1073,7 +1383,7 @@ function renderModalUsers(){
     const save=document.createElement("button");save.className="row-btn save";save.textContent="💾";save.title="이름 저장";
     save.addEventListener("click",()=>{
       const nv=input.value.trim();if(!nv){input.focus();return;}
-      u.name=nv;saveAndSync();renderUsers();renderStats();initHeatSelectors();renderFav();renderMemo();renderMemorize();
+      u.name=nv;saveAndSync();renderUsers();renderStats();initHeatSelectors();renderFav();renderDiaryBox();renderMemorize();
       showToast("이름을 변경했어요");
     });
     input.addEventListener("keydown",e=>{if(e.key==="Enter")save.click();});
@@ -1086,7 +1396,7 @@ function renderModalUsers(){
         if(!armed){armed=true;del.textContent="❗";del.title="한 번 더 누르면 삭제";
           setTimeout(()=>{armed=false;del.textContent="🗑";del.title="삭제";},2500);return;}
         users=users.filter(x=>x.id!==u.id);
-        delete done[u.id];delete fav[u.id];delete memo[u.id];
+        delete done[u.id];delete fav[u.id];delete memo[u.id];delete readProg[u.id];delete bookmarks[u.id];
         memorize=memorize.filter(m=>m.userId!==u.id);
         if(selUser===u.id)selUser=users[0].id;
         LS.set(K.sel,selUser);saveAndSync();
@@ -1123,7 +1433,31 @@ document.getElementById("btnFamily").addEventListener("click",openFamilyModal);
 function openFamilyModal(){
   document.getElementById("syncUrl").value=syncUrl;
   document.getElementById("familyCode").value=famCode;
+  document.getElementById("tgToken").value=LS.get(K.tgToken,"");
+  document.getElementById("tgChat").value=LS.get(K.tgChat,"");
+  document.getElementById("tgHour").value=LS.get(K.tgHour,"21");
   document.getElementById("familyModal").classList.add("show");
+}
+/* ---------- 텔레그램 미독 알림 ---------- */
+function sendTelegram(token,chat,text){
+  return fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({chat_id:chat,text})
+  }).then(r=>r.json());
+}
+function checkTelegramReminder(){
+  const token=LS.get(K.tgToken,""),chat=LS.get(K.tgChat,"");
+  if(!token||!chat)return;
+  const hour=parseInt(LS.get(K.tgHour,"21"),10);if(isNaN(hour))return;
+  const now=new Date();if(now.getHours()<hour)return;
+  const today=todayISO();
+  if(LS.get(K.tgLast,"")===today)return;      // 오늘 이미 보냄
+  const plan=planByDate[today];if(!plan)return; // 계획 없는 날(쉬는 날)은 건너뜀
+  const unread=users.filter(u=>!isDone(u.id,today)).map(u=>u.name);
+  if(unread.length===0)return;                 // 모두 읽음
+  LS.set(K.tgLast,today);
+  const msg=`📖 생명의 말씀 알림\n오늘(${now.getMonth()+1}/${now.getDate()}) 아직 읽지 않았어요: ${unread.join(", ")}\n오늘의 말씀 · ${rangeText(plan)}`;
+  sendTelegram(token,chat,msg).catch(()=>{});
 }
 document.getElementById("familyModalClose").addEventListener("click",()=>document.getElementById("familyModal").classList.remove("show"));
 document.getElementById("familyModal").addEventListener("click",e=>{if(e.target.id==="familyModal")e.target.classList.remove("show");});
@@ -1131,6 +1465,9 @@ document.getElementById("familySaveBtn").addEventListener("click",()=>{
   syncUrl=document.getElementById("syncUrl").value.trim();
   famCode=document.getElementById("familyCode").value.trim();
   LS.set(K.syncUrl,syncUrl);LS.set(K.famCode,famCode);
+  LS.set(K.tgToken,document.getElementById("tgToken").value.trim());
+  LS.set(K.tgChat,document.getElementById("tgChat").value.trim());
+  LS.set(K.tgHour,(document.getElementById("tgHour").value.trim()||"21"));
   document.getElementById("familyModal").classList.remove("show");
   if(syncEnabled()){
     setSyncBadge(false,"연결 중…");
@@ -1146,24 +1483,33 @@ document.getElementById("familySaveBtn").addEventListener("click",()=>{
     showToast("이 기기 저장 모드로 전환했어요");
   }
 });
+document.getElementById("tgTestBtn").addEventListener("click",()=>{
+  const token=document.getElementById("tgToken").value.trim();
+  const chat=document.getElementById("tgChat").value.trim();
+  if(!token||!chat){showToast("봇 토큰과 채팅 ID를 먼저 입력하세요");return;}
+  showToast("테스트 메시지 보내는 중…");
+  sendTelegram(token,chat,"✅ 생명의 말씀 알림 연결 테스트 성공!")
+    .then(r=>{showToast(r&&r.ok?"테스트 메시지를 보냈어요 ✓":"실패: "+((r&&r.description)||"토큰/채팅 ID 확인"));})
+    .catch(()=>showToast("전송 실패 · 인터넷/토큰을 확인하세요"));
+});
 
 /* =====================================================================
    달력/책 내비게이션
    ===================================================================== */
-document.getElementById("prevM").addEventListener("click",()=>{calMonth--;if(calMonth<1){calMonth=12;calYear--;}renderCalendar();});
-document.getElementById("nextM").addEventListener("click",()=>{calMonth++;if(calMonth>12){calMonth=1;calYear++;}renderCalendar();});
-document.getElementById("todayM").addEventListener("click",()=>{const t=new Date();calYear=t.getFullYear();calMonth=t.getMonth()+1;renderCalendar();});
-document.getElementById("prevPage").addEventListener("click",()=>{if(spreadIndex>0){spreadIndex--;renderSpread();}});
-document.getElementById("nextPage").addEventListener("click",()=>{const ts=Math.ceil(currentPlan.chapters.length/2);if(spreadIndex<ts-1){spreadIndex++;renderSpread();}});
+document.getElementById("prevM").addEventListener("click",()=>{calMonth--;if(calMonth<1){calMonth=12;calYear--;}renderCalendar();renderDiarySummary();});
+document.getElementById("nextM").addEventListener("click",()=>{calMonth++;if(calMonth>12){calMonth=1;calYear++;}renderCalendar();renderDiarySummary();});
+document.getElementById("todayM").addEventListener("click",()=>{const t=new Date();calYear=t.getFullYear();calMonth=t.getMonth()+1;renderCalendar();renderDiarySummary();});
+document.getElementById("prevPage").addEventListener("click",()=>{if(spreadIndex>0){spreadIndex--;playPageTurn();renderSpread();markRead();}});
+document.getElementById("nextPage").addEventListener("click",()=>{if(spreadIndex<pages.length-1){spreadIndex++;playPageTurn();renderSpread();markRead();}});
 
 /* =====================================================================
    전체 렌더 & 초기화
    ===================================================================== */
 function renderAll(){
-  renderUsers();updateProgress();updateStreak();renderFav();
+  renderUsers();updateProgress();updateStreak();renderFav();renderBookmarks();
   renderCalendar();renderStats();initHeatSelectors();renderHeatmap();
-  renderMemorize();syncCompleteBtn();
-  if(currentPlan){renderSpread();renderMemo();}
+  renderMemorize();renderDiaryList();renderDiarySummary();syncCompleteBtn();
+  if(currentPlan){renderSpread();renderDiaryBox();}
 }
 
 async function init(){
@@ -1200,6 +1546,10 @@ async function init(){
   // 동기화 시작
   setSyncBadge(false);
   if(syncEnabled()) startSync();
+
+  // 텔레그램 미독 알림 (앱이 켜져 있을 때만 동작)
+  checkTelegramReminder();
+  setInterval(checkTelegramReminder,5*60*1000);
 
   setTimeout(()=>document.getElementById("loader").classList.add("hide"),400);
 }
