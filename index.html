@@ -2,8 +2,13 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#EFEEE1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="생명의 말씀">
+<link rel="apple-touch-icon" href="icon-180.png">
 <title>생명의 말씀 — 가족 성경 대시보드</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -113,10 +118,24 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .chap-blocks .cb.cur{border-color:var(--mustard2);box-shadow:0 0 0 1px rgba(176,146,28,.35);font-weight:700;}
 
 /* 단어·어절 메모 (뜻/메모) */
-.wn{background:rgba(245,231,127,.6);border-bottom:2px solid var(--mustard);border-radius:2px;padding:0 1px;cursor:pointer;}
-body.dark .wn{background:rgba(205,178,102,.3);}
-.wnote-bar{position:fixed;z-index:80;transform:translate(-50%,-100%);background:var(--ink);color:#f6f5ee;border-radius:99px;padding:8px 15px;font:600 13px var(--suit);box-shadow:0 8px 22px rgba(0,0,0,.32);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .14s;white-space:nowrap;}
+.wn{background:transparent;color:inherit;border-bottom:2px solid var(--mustard);padding:0;cursor:pointer;}
+body.dark .wn{border-bottom-color:var(--mustard2);}
+.wn-def{font:600 .72em var(--suit);color:#1f6fb2;margin:0 3px 0 2px;vertical-align:.12em;cursor:pointer;}
+body.dark .wn-def{color:#7ab6e6;}
+.wnote-bar{position:fixed;z-index:80;transform:translate(-50%,-100%);background:var(--ink);border-radius:99px;padding:4px;display:flex;gap:2px;box-shadow:0 8px 22px rgba(0,0,0,.32);opacity:0;pointer-events:none;transition:opacity .14s;white-space:nowrap;}
 .wnote-bar.show{opacity:1;pointer-events:auto;}
+.wnote-bar .wb-btn{background:none;color:#f6f5ee;border-radius:99px;padding:7px 11px;font:600 12.5px var(--suit);cursor:pointer;}
+.wnote-bar .wb-btn:hover{background:rgba(255,255,255,.14);}
+/* 소제목 / 난하주 */
+.verse-sub{font:700 15px var(--suit);color:var(--ink);margin:14px 0 8px;padding-left:2px;border-left:3px solid var(--mustard);padding:2px 0 2px 10px;cursor:pointer;}
+.verse-sub:hover{color:var(--mustard2);}
+.fn-mark{font-size:.62em;color:#1f6fb2;font-weight:700;cursor:pointer;vertical-align:.4em;padding:0 1px;}
+body.dark .fn-mark{color:#7ab6e6;}
+.page-fn{margin-top:18px;padding-top:12px;border-top:1px solid var(--line2);}
+.fn-item{font:400 12.5px/1.6 var(--serif);color:var(--m1);margin-bottom:4px;cursor:pointer;}
+.fn-item:hover{color:var(--body);}
+.fn-item .fn-n{color:#1f6fb2;font-weight:700;margin-right:4px;}
+body.dark .fn-item .fn-n{color:#7ab6e6;}
 .wnote-pop{position:fixed;z-index:81;transform:translateX(-50%);width:min(300px,86vw);background:var(--page);border:1px solid var(--line2);border-radius:14px;padding:14px;box-shadow:0 18px 44px -12px rgba(47,42,30,.5);opacity:0;pointer-events:none;transition:opacity .15s;}
 .wnote-pop.show{opacity:1;pointer-events:auto;}
 .wn-quote{font:500 13px/1.5 var(--serif);color:var(--mustard2);background:var(--yellow-soft);border-radius:8px;padding:8px 10px;margin-bottom:10px;max-height:74px;overflow:auto;}
@@ -385,6 +404,7 @@ body.dark .wn{background:rgba(205,178,102,.3);}
 .onb-btn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--line2);background:rgba(255,255,255,.45);border-radius:12px;padding:12px 14px;font:600 15px var(--suit);color:var(--ink);transition:all .16s;}
 .onb-btn:hover{background:var(--yellow);border-color:var(--yellow);color:var(--btnink);}
 .onb-btn .ava{width:30px;height:30px;border-radius:50%;background:var(--yellow-soft);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;}
+.onb-or{text-align:center;font:500 12px var(--suit);color:var(--m3);margin:18px 0 10px;}
 
 /* 토스트 / 축하 */
 .toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(30px);background:var(--ink);color:#f6f5ee;font:400 15px var(--serif);padding:13px 24px;border-radius:99px;box-shadow:0 12px 30px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:all .4s;z-index:70;}
@@ -798,14 +818,15 @@ body.dark .btn-y.done{background:#38442e;color:#c7dcb3;}
 <!-- 첫 등록(온보딩) -->
 <div class="modal-back" id="meOnboard">
   <div class="modal">
-    <h3>📖 누구세요?</h3>
-    <p class="desc">이 기기에서 사용할 <b>내 이름</b>을 한 번만 골라주세요.<br>Choose who you are on this device (just once).</p>
-    <div class="onb-users" id="onbUsers"></div>
-    <label style="margin-top:14px;">또는 새 이름 만들기</label>
+    <h3>📖 반가워요!</h3>
+    <p class="desc">이 기기에서 쓸 <b>내 이름</b>을 정해주세요. 회원가입처럼 한 번만 하면, 앞으로 계속 그 이름으로 내 기록이 저장돼요.</p>
+    <label>내 이름</label>
     <div style="display:flex;gap:8px;">
-      <input type="text" id="onbNewName" maxlength="10" placeholder="새 이름">
-      <button class="btn-primary" id="onbAddBtn" style="flex:none;padding:12px 18px;">추가</button>
+      <input type="text" id="onbNewName" maxlength="10" placeholder="예: 지수">
+      <button class="btn-primary" id="onbAddBtn" style="flex:none;padding:12px 20px;">시작하기</button>
     </div>
+    <div class="onb-or">— 또는 이미 등록된 사람이면 선택 —</div>
+    <div class="onb-users" id="onbUsers"></div>
   </div>
 </div>
 
@@ -826,7 +847,7 @@ body.dark .btn-y.done{background:#38442e;color:#c7dcb3;}
 </div>
 
 <!-- 단어·어절 메모 -->
-<div class="wnote-bar" id="wnoteBar">📝 뜻·메모</div>
+<div class="wnote-bar" id="wnoteBar"><button class="wb-btn" data-kind="memo">📝 뜻메모</button><button class="wb-btn" data-kind="sub">📑 소제목</button><button class="wb-btn" data-kind="fn">📌 난하주</button></div>
 <div class="wnote-pop" id="wnotePop">
   <div class="wn-quote" id="wnQuote"></div>
   <textarea id="wnInput" placeholder="이 부분의 뜻이나 메모를 적어요…"></textarea>
@@ -861,7 +882,7 @@ async function decompressBible(){
 }
 
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
-const K={users:"lw2_users",sel:"lw2_sel",me:"lw2_me",done:"lw2_done",fav:"lw2_fav",memo:"lw2_memo",mem:"lw2_memorize",dark:"lw2_dark",music:"lw2_music",vol:"lw2_vol",syncUrl:"lw2_syncUrl",famCode:"lw2_famCode",read:"lw2_read",bm:"lw2_bookmarks",tgToken:"lw2_tgToken",tgChat:"lw2_tgChat",tgHour:"lw2_tgHour",tgLast:"lw2_tgLast",rcfg:"lw2_readcfg",chread:"lw2_chread",wnote:"lw2_wnote",pen:"lw2_pen"};
+const K={users:"lw2_users",sel:"lw2_sel",me:"lw2_me",done:"lw2_done",fav:"lw2_fav",memo:"lw2_memo",mem:"lw2_memorize",dark:"lw2_dark",music:"lw2_music",vol:"lw2_vol",syncUrl:"lw2_syncUrl",famCode:"lw2_famCode",read:"lw2_read",bm:"lw2_bookmarks",tgToken:"lw2_tgToken",tgChat:"lw2_tgChat",tgHour:"lw2_tgHour",tgLast:"lw2_tgLast",rcfg:"lw2_readcfg",chread:"lw2_chread",wnote:"lw2_wnote",pen:"lw2_pen",sub:"lw2_sub",fn:"lw2_fn"};
 
 let users=LS.get(K.users,[{id:"u"+Math.random().toString(36).slice(2,8),name:"민규",icon:"👦"},{id:"u"+Math.random().toString(36).slice(2,8),name:"나예",icon:"👧"}]);
 users.forEach(u=>{if(u.name==="민수"){u.name="민규";u.icon="👦";}else if(u.name==="지은"){u.name="나예";u.icon="👧";}});
@@ -872,6 +893,10 @@ let bookmarks=LS.get(K.bm,{});
 let chReadStore=LS.get(K.chread,{});
 let wnoteStore=LS.get(K.wnote,{});
 function wnoteOf(uid){return wnoteStore[uid]||(wnoteStore[uid]=[]);}
+let subStore=LS.get(K.sub,{});function subOf(uid){return subStore[uid]||(subStore[uid]={});}
+let fnStore=LS.get(K.fn,{});function fnOf(uid){return fnStore[uid]||(fnStore[uid]=[]);}
+function subKey(b,c,v){return b+"|"+c+"|"+v;}
+let _fnCounter=0,_fnCollect=[];   // 난하주 페이지 번호 매기기
 function chReadArr(planId){const u=chReadStore[selUser]||(chReadStore[selUser]={});return u[planId]||(u[planId]=[]);}
 function markChapRead(i){if(!currentPlan)return;const a=chReadArr(currentPlan.id);if(a.indexOf(i)===-1){a.push(i);LS.set(K.chread,chReadStore);}}
 function toggleChapRead(i){if(!currentPlan)return;const a=chReadArr(currentPlan.id);const p=a.indexOf(i);if(p===-1)a.push(i);else a.splice(p,1);LS.set(K.chread,chReadStore);renderChapBlocks();}
@@ -1018,7 +1043,7 @@ function renderCalendar(){
     html+=`<div class="cal-badges">`;
     users.forEach(u=>{
       const isdone=(done[u.id]||[]).includes(iso);const rp=(readProg[u.id]||{})[iso]||0;
-      const total=plan?plan.chapters.length:0;const frac=isdone?1:(total?Math.min(1,rp/total):0);   // 읽은 비율
+      const total=plan?plan.chapters.length:0;const frac=isdone?1:(total?Math.min(0.7,Math.max(0,rp-1)/total):0);   // 넘겨본 정도(부분), 완료=1
       const dm=(memo[u.id]||{})[iso];const hasdia=!!(dm&&(""+dm).trim());
       const st=frac>0?`background:rgba(226,185,0,${(0.22+frac*0.78).toFixed(2)});border-color:transparent;color:#4a3f07;`:``;
       html+=`<span class="cal-ub" style="${st}"><span class="nm">${esc(u.name)}</span><span class="ubmk diary${hasdia?" on":""}" data-uid="${u.id}" title="일기">📔</span></span>`;
@@ -1119,12 +1144,12 @@ function bindVerseButtons(container){
     const b=p.dataset.book,c=+p.dataset.chap,v=+p.dataset.verse;
     const vtext=p.querySelector(".vtext"),vnum=p.querySelector(".vnum");
     if(vtext)vtext.addEventListener("click",e=>{
-      if(e.target.closest(".wn"))return;                                  // 하이라이트는 메모 열기(별도)
+      if(e.target.closest(".wn")||e.target.closest(".wn-def"))return;      // 뜻메모는 별도 열기
       const s=window.getSelection&&window.getSelection();
       if(s&&!s.isCollapsed&&String(s).trim())return;                      // 드래그 선택 중이면 암기토글 안 함
       toggleMemVerse(b,c,v,p);
     });
-    p.querySelectorAll(".wn").forEach(m=>m.addEventListener("click",e=>{
+    p.querySelectorAll(".wn,.wn-def").forEach(m=>m.addEventListener("click",e=>{
       e.stopPropagation();const n=wnoteOf(selUser).find(x=>x.id===m.dataset.id);
       if(n)openWnotePop(n,m.getBoundingClientRect());
     }));
@@ -1167,26 +1192,41 @@ function hlNotes(book,chap,vnum,escText){
     const et=esc(n.text);if(!et)return;let from=0,idx;
     while((idx=html.indexOf(et,from))>=0){
       const inside=html.lastIndexOf("<mark",idx)>html.lastIndexOf("</mark>",idx);   // 이미 마크 안이면 스킵
-      if(!inside){html=html.slice(0,idx)+`<mark class="wn" data-id="${n.id}">`+et+`</mark>`+html.slice(idx+et.length);break;}
+      if(!inside){html=html.slice(0,idx)+`<mark class="wn" data-id="${n.id}">`+et+`</mark><span class="wn-def" data-id="${n.id}">${esc(n.note||"")}</span>`+html.slice(idx+et.length);break;}
       from=idx+et.length;
     }
   });
   return html;
 }
+function annotate(book,chap,vnum,escText){
+  let html=hlNotes(book,chap,vnum,escText);                 // 뜻메모(밑줄+작은글씨)
+  const fns=fnOf(selUser).filter(n=>n.book===book&&n.chap===chap&&+n.verse===+vnum);
+  fns.forEach(n=>{const et=esc(n.text||"");if(!et)return;const idx=html.indexOf(et);if(idx<0)return;
+    _fnCounter++;_fnCollect.push({num:_fnCounter,note:n.note||"",id:n.id});
+    const at=idx+et.length;html=html.slice(0,at)+`<sup class="fn-mark" data-id="${n.id}">${_fnCounter})</sup>`+html.slice(at);});
+  return html;
+}
 function versesHTML(book,chap,list){
   if(!list||!list.length)return "";
-  const favs=favOf(selUser);let h="";
+  const favs=favOf(selUser),subs=subOf(selUser);let h="";
   list.forEach(([vnum,txt])=>{
+    const s=subs[subKey(book,chap,vnum)];
+    if(s&&(""+s).trim())h+=`<div class="verse-sub" data-book="${book}" data-chap="${chap}" data-verse="${vnum}">${esc(s)}</div>`;
     const ref=`${book} ${chap}:${vnum}`;const isFav=!!favs[ref];
     const isMem=memorize.some(m=>m.userId===selUser&&m.verse===ref);
-    h+=`<p class="verse${isMem?' mem-on':''}${isFav?' fav-on':''}" data-book="${book}" data-chap="${chap}" data-verse="${vnum}"><span class="vnum">${vnum}</span><span class="vtext">${hlNotes(book,chap,vnum,esc(txt))}</span></p>`;
+    h+=`<p class="verse${isMem?' mem-on':''}${isFav?' fav-on':''}" data-book="${book}" data-chap="${chap}" data-verse="${vnum}"><span class="vnum">${vnum}</span><span class="vtext">${annotate(book,chap,vnum,esc(txt))}</span></p>`;
   });
   return h;
+}
+function fnSectionHTML(){
+  if(!_fnCollect.length)return "";
+  return `<div class="page-fn">`+_fnCollect.map(f=>`<div class="fn-item" data-id="${f.id}"><span class="fn-n">${f.num})</span> ${esc(f.note)}</div>`).join("")+`</div>`;
 }
 function renderSlice(){
   const pg=pages[spreadIndex]||{book:"",chap:0};const L=document.getElementById("pageLeft");
   const u=unitOf(pg.book);const arr=(BIBLE[pg.book]||{})[pg.chap]||[];
   const sl=chapSlices[bookScreen]||[0,arr.length];const slice=arr.slice(sl[0],sl[1]);
+  _fnCounter=0;_fnCollect=[];
   let body;
   if(bookWide()&&slice.length){                       // 넓은 화면: 왼쪽 절반 / 오른쪽 절반
     const mid=Math.ceil(slice.length/2);
@@ -1194,8 +1234,8 @@ function renderSlice(){
   }else{                                               // 좁은 화면: 한 페이지 전체
     body=versesHTML(pg.book,pg.chap,slice)||`<p class="verse"><span class="vtext">본문을 불러올 수 없습니다.</span></p>`;
   }
-  L.innerHTML=`<div class="pg-title">${esc(pg.book)} ${pg.chap}${u}</div><div class="verses">${body}</div>`;
-  bindVerseButtons(L);
+  L.innerHTML=`<div class="pg-title">${esc(pg.book)} ${pg.chap}${u}</div><div class="verses">${body}</div>${fnSectionHTML()}`;
+  bindVerseButtons(L);bindAnnoEdits(L);
   L.classList.remove("page-turn");void L.offsetWidth;L.classList.add("page-turn");
   updateChapNavState();if(typeof hideWnoteBar==="function")hideWnoteBar();
   if(typeof redrawInk==="function")redrawInk();
@@ -1228,18 +1268,32 @@ function renderChapter(){
   markChapRead(spreadIndex);renderSlice();renderChapBlocks();
   syncCompleteBtn();syncBookmarkBtn();
 }
+function planPos(){return PLAN.findIndex(p=>currentPlan&&p.id===currentPlan.id);}
+function goAdjacentDay(dir){                       // dir +1=다음 날, -1=이전 날
+  const i=planPos();if(i<0)return false;const np=PLAN[i+dir];if(!np)return false;
+  playPageTurn();currentPlan=np;diaryDate=np.id;pages=buildPages(np);
+  spreadIndex=dir>0?0:Math.max(pages.length-1,0);
+  renderChapter();
+  if(dir<0){bookScreen=Math.max(bookScreens-1,0);renderSlice();}
+  markRead();renderSidebar();updateProgress();renderLastRecord();renderDiaryBox();scrollBookTop();
+  showToast(dir>0?"📅 다음 날 분량":"📅 이전 날 분량");
+  return true;
+}
 function updateChapNavState(){
   const p=document.getElementById("prevPage"),n=document.getElementById("nextPage");if(!p||!n)return;
-  p.classList.toggle("disabled",spreadIndex===0&&bookScreen===0);
-  n.classList.toggle("disabled",spreadIndex>=pages.length-1&&bookScreen>=bookScreens-1);
+  const i=planPos();const atStart=spreadIndex===0&&bookScreen===0,atEnd=spreadIndex>=pages.length-1&&bookScreen>=bookScreens-1;
+  p.classList.toggle("disabled",atStart&&i<=0);
+  n.classList.toggle("disabled",atEnd&&(i<0||i>=PLAN.length-1));
 }
 function bookNext(){
   if(bookScreen<bookScreens-1){bookScreen++;playPageTurn();renderSlice();scrollBookTop();}
   else if(spreadIndex<pages.length-1){gotoChapter(spreadIndex+1);}
+  else{goAdjacentDay(1);}
 }
 function bookPrev(){
   if(bookScreen>0){bookScreen--;playPageTurn();renderSlice();scrollBookTop();}
   else if(spreadIndex>0){gotoChapter(spreadIndex-1);}
+  else{goAdjacentDay(-1);}
 }
 /* 화면 크기 바뀌면(넓은↔좁은) 나눔 다시 계산 */
 function relayoutBook(){
@@ -1261,14 +1315,27 @@ function gotoChapter(i){
   i=Math.max(0,Math.min(pages.length-1,i));if(i===spreadIndex){return;}
   spreadIndex=i;playPageTurn();renderChapter();markRead();scrollBookTop();
 }
-function markRead(){
+function markRead(){                               // 위치만 저장 — 자동 완료체크 안 함(#6)
   if(!currentPlan)return;
-  const rp=readOf(selUser),reached=spreadIndex+1;rp[currentPlan.id]=reached;
-  const wasDone=isDone(selUser,currentPlan.id);const nowDone=pages.length>0&&reached>=pages.length;
-  if(nowDone&&!wasDone){doneOf(selUser).push(currentPlan.id);showToast("끝까지 읽었어요 · 오늘 읽기 완료");celebrate();}
-  else if(!nowDone&&wasDone){const arr=doneOf(selUser);const i=arr.indexOf(currentPlan.id);if(i>=0)arr.splice(i,1);showToast("읽기 완료를 취소했어요");}
+  readOf(selUser)[currentPlan.id]=spreadIndex+1;
   saveAndSync();updateProgress();renderSidebar();renderMiniCal();renderCalendar();renderStats();renderHeatmap();syncCompleteBtn();renderChapBlocks();
 }
+function setDone(val){                             // 읽기완료 켜기/끄기(#7)
+  if(!currentPlan)return;const arr=doneOf(selUser),id=currentPlan.id,has=arr.includes(id);
+  if(val&&!has){arr.push(id);showToast("오늘 읽기 완료 🎉");celebrate();}
+  else if(!val&&has){arr.splice(arr.indexOf(id),1);showToast("읽기 완료를 취소했어요");}
+  else return;
+  saveAndSync();updateProgress();renderSidebar();renderMiniCal();renderCalendar();renderStats();renderHeatmap();syncCompleteBtn();renderLastRecord();
+}
+/* 마지막 장 끝까지 스크롤하면 자동 완료체크(#6) */
+window.addEventListener("scroll",()=>{
+  if(!currentPlan)return;
+  const vt=document.getElementById("view-today");if(!vt||vt.classList.contains("hidden"))return;
+  if(!(spreadIndex>=pages.length-1&&bookScreen>=bookScreens-1))return;
+  if(window.scrollY<=10)return;
+  const book=document.querySelector("#view-today .book");if(!book)return;
+  if(book.getBoundingClientRect().bottom<=window.innerHeight+30)setDone(true);
+},{passive:true});
 
 /* ---------- 책갈피 ---------- */
 function currentPageAnchor(){const pg=pages[spreadIndex];if(!pg||!pg.book)return null;const arr=(BIBLE[pg.book]||{})[pg.chap]||[];const first=arr[0]?arr[0][0]:1;return{book:pg.book,chap:pg.chap,verse:first};}
@@ -1400,10 +1467,7 @@ function syncCompleteBtn(){
   else{btn.textContent="읽기 완료";btn.classList.remove("done");}
 }
 document.getElementById("btnComplete").addEventListener("click",()=>{
-  if(!currentPlan)return;const arr=doneOf(selUser);const id=currentPlan.id;const idx=arr.indexOf(id);
-  if(idx>=0){spreadIndex=Math.max(pages.length-2,0);readOf(selUser)[id]=spreadIndex+1;arr.splice(idx,1);showToast("읽기 완료를 취소했어요");renderChapter();}
-  else{arr.push(id);spreadIndex=Math.max(pages.length-1,0);readOf(selUser)[id]=pages.length;showToast("오늘의 생명의 말씀 읽기 완료");celebrate();renderChapter();}
-  saveAndSync();updateProgress();renderSidebar();renderMiniCal();renderCalendar();renderStats();renderHeatmap();syncCompleteBtn();renderLastRecord();
+  if(!currentPlan)return;setDone(!isDone(selUser,currentPlan.id));
 });
 document.getElementById("btnContinue").addEventListener("click",()=>{
   if(spreadIndex<pages.length-1)gotoChapter(spreadIndex+1);
@@ -1632,6 +1696,7 @@ document.getElementById("onbAddBtn").addEventListener("click",()=>{
   const nu={id:"u"+Date.now(),name,icon:ICONS.find(i=>!users.some(u=>u.icon===i))||ICONS[0]};
   users.push(nu);saveAndSync();chooseMe(nu.id);
 });
+document.getElementById("onbNewName").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("onbAddBtn").click();});
 
 /* ---------- 단어·어절 메모 (본문 선택 → 뜻/메모) ---------- */
 let wnoteSel=null,wnoteEditing=null,wnoteRect=null;
@@ -1655,32 +1720,55 @@ function onSelectionEnd(e){
 document.addEventListener("mouseup",e=>setTimeout(()=>onSelectionEnd(e),10));
 document.addEventListener("touchend",e=>setTimeout(()=>onSelectionEnd(e),10));
 window.addEventListener("scroll",hideWnoteBar,true);
-function openWnotePop(note,rect){
-  hideWnoteBar();
-  const pop=document.getElementById("wnotePop"),q=document.getElementById("wnQuote"),ta=document.getElementById("wnInput"),del=document.getElementById("wnDel");
-  wnoteEditing=note||null;
-  const text=note?note.text:(wnoteSel?wnoteSel.text:"");
-  q.textContent="“"+text+"”";ta.value=note?(note.note||""):"";del.style.display=note?"":"none";
+let annoKind="memo",annoEdit=null,annoCtx=null;
+function openWnotePop(note,rect){openAnnoPop("memo",note,note?{book:note.book,chap:note.chap,verse:note.verse,text:note.text}:wnoteSel,rect);}
+function openAnnoPop(kind,edit,ctx,rect){
+  hideWnoteBar();annoKind=kind;annoEdit=edit||null;annoCtx=ctx||wnoteSel||null;
+  const pop=document.getElementById("wnotePop"),q=document.getElementById("wnQuote"),ta=document.getElementById("wnInput"),del=document.getElementById("wnDel"),save=document.getElementById("wnSave");
+  const labels={memo:"뜻·메모",sub:"소제목",fn:"난하주"};
+  const ph={memo:"이 부분의 뜻이나 메모를 적어요…",sub:"이 절 위에 넣을 소제목…",fn:"페이지 아래에 달 주석(난하주)…"};
+  let quote,cur="";
+  if(kind==="sub"){quote=annoCtx?`${annoCtx.book} ${annoCtx.chap}${unitOf(annoCtx.book)}:${annoCtx.verse} 위 소제목`:"소제목";cur=(annoCtx?subOf(selUser)[subKey(annoCtx.book,annoCtx.chap,annoCtx.verse)]:"")||"";}
+  else{quote="“"+(edit?edit.text:(annoCtx?annoCtx.text:""))+"”";cur=edit?(edit.note||""):"";}
+  q.textContent=quote;ta.value=cur;ta.placeholder=ph[kind]||"";save.textContent=labels[kind]+" 저장";
+  const hasExisting=kind==="sub"?!!cur:!!edit;del.style.display=hasExisting?"":"none";
   const r=rect||wnoteRect||{left:window.innerWidth/2,width:0,bottom:window.innerHeight/2,top:window.innerHeight/2};
   pop.style.left=Math.min(Math.max(r.left+(r.width||0)/2,155),window.innerWidth-155)+"px";
   let top=(r.bottom||r.top)+10;const popH=250;if(top>window.innerHeight-popH)top=Math.max(20,(r.top||120)-popH);
   pop.style.top=top+"px";pop.classList.add("show");setTimeout(()=>ta.focus(),60);
 }
-function saveWnote(){
-  const val=document.getElementById("wnInput").value.trim();const list=wnoteOf(selUser);
-  if(wnoteEditing){if(val){wnoteEditing.note=val;}else{const i=list.indexOf(wnoteEditing);if(i>=0)list.splice(i,1);}}
-  else{if(!wnoteSel){hideWnotePop();return;}if(!val){hideWnotePop();return;}
-    list.push({id:"w"+Date.now(),planId:currentPlan?currentPlan.id:"",book:wnoteSel.book,chap:wnoteSel.chap,verse:wnoteSel.verse,text:wnoteSel.text,note:val,createdAt:Date.now()});}
-  LS.set(K.wnote,wnoteStore);hideWnotePop();
-  if(window.getSelection)try{window.getSelection().removeAllRanges();}catch(e){}
-  renderSlice();renderWnoteList();showToast("메모를 저장했어요");
+function saveAnno(){
+  const val=document.getElementById("wnInput").value.trim();
+  if(annoKind==="memo"){const list=wnoteOf(selUser);
+    if(annoEdit){if(val)annoEdit.note=val;else{const i=list.indexOf(annoEdit);if(i>=0)list.splice(i,1);}}
+    else{if(!annoCtx||!val){hideWnotePop();return;}list.push({id:"w"+Date.now(),planId:currentPlan?currentPlan.id:"",book:annoCtx.book,chap:annoCtx.chap,verse:annoCtx.verse,text:annoCtx.text,note:val,createdAt:Date.now()});}
+    LS.set(K.wnote,wnoteStore);renderWnoteList();
+  }else if(annoKind==="sub"){if(!annoCtx){hideWnotePop();return;}const m=subOf(selUser),k=subKey(annoCtx.book,annoCtx.chap,annoCtx.verse);if(val)m[k]=val;else delete m[k];LS.set(K.sub,subStore);
+  }else if(annoKind==="fn"){const list=fnOf(selUser);
+    if(annoEdit){if(val)annoEdit.note=val;else{const i=list.indexOf(annoEdit);if(i>=0)list.splice(i,1);}}
+    else{if(!annoCtx||!val){hideWnotePop();return;}list.push({id:"f"+Date.now(),planId:currentPlan?currentPlan.id:"",book:annoCtx.book,chap:annoCtx.chap,verse:annoCtx.verse,text:annoCtx.text,note:val,createdAt:Date.now()});}
+    LS.set(K.fn,fnStore);}
+  hideWnotePop();if(window.getSelection)try{window.getSelection().removeAllRanges();}catch(e){}
+  renderSlice();showToast("저장했어요");
 }
-function delWnote(){if(!wnoteEditing){hideWnotePop();return;}const list=wnoteOf(selUser);const i=list.indexOf(wnoteEditing);if(i>=0)list.splice(i,1);LS.set(K.wnote,wnoteStore);hideWnotePop();renderSlice();renderWnoteList();showToast("메모를 지웠어요");}
-document.getElementById("wnoteBar").addEventListener("mousedown",e=>{e.preventDefault();openWnotePop(null,wnoteRect);});
-document.getElementById("wnoteBar").addEventListener("touchstart",e=>{e.preventDefault();openWnotePop(null,wnoteRect);},{passive:false});
-document.getElementById("wnSave").addEventListener("click",saveWnote);
+function delAnno(){
+  if(annoKind==="memo"&&annoEdit){const l=wnoteOf(selUser),i=l.indexOf(annoEdit);if(i>=0)l.splice(i,1);LS.set(K.wnote,wnoteStore);renderWnoteList();}
+  else if(annoKind==="sub"&&annoCtx){delete subOf(selUser)[subKey(annoCtx.book,annoCtx.chap,annoCtx.verse)];LS.set(K.sub,subStore);}
+  else if(annoKind==="fn"&&annoEdit){const l=fnOf(selUser),i=l.indexOf(annoEdit);if(i>=0)l.splice(i,1);LS.set(K.fn,fnStore);}
+  else{hideWnotePop();return;}
+  hideWnotePop();renderSlice();showToast("지웠어요");
+}
+function bindAnnoEdits(L){
+  L.querySelectorAll(".verse-sub").forEach(el=>el.addEventListener("click",e=>{e.stopPropagation();openAnnoPop("sub",null,{book:el.dataset.book,chap:+el.dataset.chap,verse:+el.dataset.verse},el.getBoundingClientRect());}));
+  L.querySelectorAll(".fn-mark,.fn-item").forEach(el=>el.addEventListener("click",e=>{e.stopPropagation();const n=fnOf(selUser).find(x=>x.id===el.dataset.id);if(n)openAnnoPop("fn",n,{book:n.book,chap:n.chap,verse:n.verse,text:n.text},el.getBoundingClientRect());}));
+}
+document.querySelectorAll("#wnoteBar .wb-btn").forEach(b=>{
+  const open=e=>{e.preventDefault();openAnnoPop(b.dataset.kind,null,wnoteSel,wnoteRect);};
+  b.addEventListener("mousedown",open);b.addEventListener("touchstart",open,{passive:false});
+});
+document.getElementById("wnSave").addEventListener("click",saveAnno);
 document.getElementById("wnCancel").addEventListener("click",hideWnotePop);
-document.getElementById("wnDel").addEventListener("click",delWnote);
+document.getElementById("wnDel").addEventListener("click",delAnno);
 
 /* ---------- 필기 (읽는 화면 위에 바로) + PDF ---------- */
 const PEN_COLORS=["#2f3a3d","#c0392b","#1f6fb2","#2e7d32","#b0921c"];
@@ -1751,10 +1839,10 @@ function chapterDate(book,chap){for(let i=0;i<PLAN.length;i++){if(PLAN[i].chapte
 function allPenKeys(){return Object.keys(penOf(selUser)).filter(k=>(penOf(selUser)[k]||[]).length);}
 function setPageContent(book,chap,slice){
   const L=document.getElementById("pageLeft");const arr=(BIBLE[book]||{})[chap]||[];const slices=computeSlices(arr);const sr=slices[slice]||[0,arr.length];const sa=arr.slice(sr[0],sr[1]);
-  const u=unitOf(book);let body;
+  const u=unitOf(book);_fnCounter=0;_fnCollect=[];let body;
   if(bookWide()){const mid=Math.ceil(sa.length/2);body=`<div class="vcol">${versesHTML(book,chap,sa.slice(0,mid))}</div><div class="vcol">${versesHTML(book,chap,sa.slice(mid))}</div>`;}
   else body=versesHTML(book,chap,sa);
-  L.innerHTML=`<div class="pg-title">${esc(book)} ${chap}${u}</div><div class="verses">${body}</div>`;
+  L.innerHTML=`<div class="pg-title">${esc(book)} ${chap}${u}</div><div class="verses">${body}</div>${fnSectionHTML()}`;
 }
 async function captureKey(key){
   const P=key.split("|");setPageContent(P[0],+P[1],+P[2]);
